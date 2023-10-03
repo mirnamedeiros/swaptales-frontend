@@ -1,3 +1,50 @@
+<script>
+import Navbar from '../components/Navbar.vue'
+import Footer from '../components/Footer.vue'
+
+    export default {
+        name: 'Viewbooks',
+        components: {
+            Navbar,
+            Footer
+        },
+        head: {
+        script: [
+            { type: 'text/javascript', src: '../js/scripts.js', async: true, body: true}, // Insert in body
+        ],
+        },
+        data() {
+            return {
+                books: []
+            }
+        },
+
+        beforeMount(){
+            this.getbooks()
+        },
+
+        methods: {
+            getbooks(){
+                fetch('http://localhost:8080/books')
+                .then(res => res.json())
+                .then(data => {
+                    this.books = data
+                    console.log(data)
+                })
+            },
+            deletebook(id){
+                fetch(`http://localhost:8080/book/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(data => {
+                    console.log(data)
+                    this.getbooks()
+                })
+            }
+        },
+    }
+</script>
+
 <template>
     <main>
         <Navbar />
@@ -78,48 +125,3 @@
         <Footer />
     </main>
 </template>
-
-
-<script>
-import Navbar from '../components/Navbar.vue'
-import Footer from '../components/Footer.vue'
-
-    export default {
-        name: 'Viewbooks',
-        components: {
-            Navbar,
-            Footer
-        },
-        data() {
-            return {
-                books: []
-            }
-        },
-
-        beforeMount(){
-            this.getbooks()
-        },
-
-        methods: {
-            getbooks(){
-                fetch('http://localhost:8080/books')
-                .then(res => res.json())
-                .then(data => {
-                    this.books = data
-                    console.log(data)
-                })
-            },
-            deletebook(id){
-                fetch(`http://localhost:8080/book/${id}`, {
-                    method: 'DELETE'
-                })
-                .then(data => {
-                    console.log(data)
-                    this.getbooks()
-                })
-            }
-        }
-
-    }
-
-</script>

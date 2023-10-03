@@ -1,4 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+:root{
+    --header-height: 3rem;
+    --nav-width: 68px;
+    --first-color: #4723D9;
+    --first-color-light: #AFA5D9;
+    --white-color: #F7F6FB;
+    --body-font: 'Nunito', sans-serif;
+    --normal-font-size: 1rem;
+    --z-fixed: 100
+}
 
 $light-color: #e7e8ee;
 $primary-color: #5a6794;
@@ -65,7 +76,7 @@ body {
 .card {
   position: relative;
   background: white;
-  border: 1px solid $primary-color;
+  border: 4px solid $dark-color;
   box-shadow: 8px 8px 0 $dark-color;
   min-width: 280px;
   max-width: 280px;
@@ -76,7 +87,6 @@ body {
   margin: 10px;
   border-radius: 0;
 	overflow: hidden;
-	border: 0.5rem solid;
   background-repeat:no-repeat;
   background-position: center center;
   background-size: cover;
@@ -126,7 +136,7 @@ body {
       font-family: 'Barlow', sans-serif;
       margin: 0;
       padding: 0 1rem;
-      max-width: 200px;
+      max-width: 240px;
     }
   }
   .card-body {
@@ -183,6 +193,7 @@ body {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  width: max-content;
 
   &:hover {
       background-color: $secondary-color;
@@ -191,11 +202,11 @@ body {
   }
 
   &:active {
-      box-shadow: #514945 1px 1px 0 0!important;
+      box-shadow: $dark-color 1px 1px 0 0!important;
       transform: translate(3px, 3px);
-      background-color: #ebd4cc!important;
-      color: #514945!important;
-      border: 2px solid #514945!important;
+      background-color: $emphasis-color!important;
+      color: $dark-color!important;
+      border: 2px solid $dark-color!important;
   }
 }
 
@@ -216,11 +227,27 @@ button.siteLink {
 }
 .whiteLink {
   background : #fff;
+
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+
+  &:hover {
+    background: $secondary-color;
+    color: $light-color;
+  }
+
+  &:active {
+    background : $primary-color;
+    color: $light-color;
+  
+    a {
+      color: #fff;
+    }
+  }
 }
-.whiteLink:active {
-  background : #000;
-  color: #fff;
-}
+.whiteLink
 .blackLink {
   color: #fff;
   background:#232323;
@@ -235,7 +262,7 @@ button.siteLink {
   font-family: 'Barlow', sans-serif;
   letter-spacing : -1px;
   font-size:32px;
-  color:#252525;
+  color:$dark-color;
   line-height : 1em;
 }
 #menuDrawer {
@@ -278,11 +305,9 @@ a.nav-menu-item{
   padding-left:32px;
   border-bottom:1px solid #eaeaea;
   font-weight:bold;
-  color:#343434
+  color:$dark-color
 }
 select.noStyle {
   border:none;
   outline:none
 }
-
-
