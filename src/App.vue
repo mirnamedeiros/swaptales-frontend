@@ -7,6 +7,5 @@
 <!-- <script src="https://kit.+fontawesome.com/3fcf9eae5f.js" crossorigin="anonymous"></script> -->
 
 <style>
-  @import 'assets/css/buttons.css';
-  @import 'assets/css/layout.scss';
+  @import 'assets/scss/style.scss';
 </style>

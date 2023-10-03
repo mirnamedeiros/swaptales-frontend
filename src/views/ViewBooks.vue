@@ -8,7 +8,7 @@
                 <div class="col-md-12 d-flex flex-column">
                     <div class="options d-flex justify-content-end">
                         <button type="button" class="btn btn-primary col-1 align-self-end"><i class="fa-solid fa-magnifying-glass pr-2"></i></button>
-                        <a href="/add" class="btn btn-primary col-2 align-self-end">Add book</a>
+                        <!-- <a href="/add" class="btn btn-primary col-2 align-self-end">Add book</a> -->
                     </div>
                     <div class="card-wrapper">
                         <div class="card" style="background-image: url('src/assets/images/a-feast-of-crows.jpg');">
@@ -75,18 +75,20 @@
                 </div>
             </div>
         </div>
-        
+        <Footer />
     </main>
 </template>
 
 
 <script>
 import Navbar from '../components/Navbar.vue'
+import Footer from '../components/Footer.vue'
 
     export default {
         name: 'Viewbooks',
         components: {
-            Navbar
+            Navbar,
+            Footer
         },
         data() {
             return {
