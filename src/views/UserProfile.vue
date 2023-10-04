@@ -1,11 +1,9 @@
 <script>
-import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 
 export default {
     name: 'Profile',
     components: {
-        Navbar,
         Footer
     }
 }
@@ -13,7 +11,6 @@ export default {
 
 <template>
     <main>
-        <Navbar />
         <div class="container mt-5 d-flex justify-content-center flex-column align-items-center">
             <div class="card-profile p-3">
                 <div class="d-flex align-items-center">

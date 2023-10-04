@@ -41,7 +41,9 @@
         
             <div class="flex2 text-end d-none d-md-block">
                 <button class="whiteLink siteLink">REGISTRAR</button>
-                <button class="whiteLink siteLink">LOGIN</button>
+                <button class="whiteLink siteLink">
+                    <a href="/login" class="col-2 align-self-end">LOGIN</a>
+                </button>
             </div>
             </div>
         </div>

@@ -1,6 +1,5 @@
 <template>
     <main>
-        <Navbar />
         <div class="my-5">
             <div class="mx-auto w-25 " style="max-width:100%;">
               <h2 class="text-center mb-3">Add Book</h2>
@@ -42,12 +41,10 @@
 
 
 <script>
-import Navbar from '../components/Navbar.vue';
 
     export default {
         name: 'AddBook',
         components: {
-            Navbar
         },
 
         data() {

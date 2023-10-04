@@ -1,11 +1,9 @@
 <script>
-import Navbar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 
     export default {
         name: 'Viewbooks',
         components: {
-            Navbar,
             Footer
         },
         head: {
@@ -47,8 +45,6 @@ import Footer from '../components/Footer.vue'
 
 <template>
     <main>
-        <Navbar />
-
         <!-- Table-->
         <div class="container my-5">
             <div class="row">

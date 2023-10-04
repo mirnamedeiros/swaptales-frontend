@@ -1,10 +1,19 @@
 <template>
   <div id="app">
+    <NavBar/>
     <router-view></router-view>
   </div>
 </template>
 
-<!-- <script src="https://kit.+fontawesome.com/3fcf9eae5f.js" crossorigin="anonymous"></script> -->
+<script>
+  import NavBar from "./components/Navbar.vue"
+  export default {
+    name: "App",
+    components : {
+      NavBar,
+    }
+  }
+</script>
 
 <style>
   @import 'assets/scss/style.scss';
