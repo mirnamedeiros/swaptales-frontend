@@ -22,7 +22,7 @@ body {
   margin: 0;
   color: $primary-color;
   background-color: $light-color;
-}
+  }
 
 .container { 
   .options {
@@ -86,10 +86,18 @@ body {
   touch-action: manipulation;
   width: max-content;
 
+  a, i {
+    color: $dark-color;
+  }
+
   &:hover {
       background-color: $secondary-color;
       border: 2px solid $dark-color;
       color: #fff;
+
+      a,i{
+        color: $light-color;
+      }
   }
 
   &:active {
@@ -98,6 +106,10 @@ body {
       background-color: $emphasis-color!important;
       color: $dark-color!important;
       border: 2px solid $dark-color!important;
+
+      a,i{
+        color: $dark-color;
+      }
   }
 }
 

@@ -106,7 +106,7 @@ export default {
                     </div>
                     <button type="button" class="btn btn-primary col-1 align-self-center mb-3">
                         <i class="fa-solid fa-plus pr-2"></i>
-                        <a href="/add" class="p-2 whiteLink">ADICIONAR LIVRO</a>
+                        <a href="/add" class="p-2 text-decoration-none">ADICIONAR LIVRO</a>
                     </button>
             </div>
             <div class="card-profile py-4 px-4">

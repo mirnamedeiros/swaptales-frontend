@@ -3,13 +3,12 @@
       <NavBar/>
         <div class="my-5">
             <div class="mx-auto w-25 " style="max-width:100%;">
-              <h2 class="text-center mb-3">Add Book</h2>
+              <h2 class="text-center mb-3">Adicionar livro</h2>
               <form @submit.prevent="addBook">
                 <!--Title-->
                 <div class="row">
                   <div class="col-md-12 form-group mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input id="title"  type="text" name="title" class="form-control" placeholder="Title" required v-model="book.title">
+                    <input id="title"  type="text" name="title" class="form-control" placeholder="Título" required v-model="book.title">
                   </div>
                 </div>
 
@@ -17,8 +16,7 @@
                 <!--Author-->
                 <div class="row">
                     <div class="col-md-12 form-group mb-3">
-                      <label for="author" class="form-label">Author</label>
-                      <input id="author" type="text"  name="author" class="form-control" placeholder="author" required v-model="book.Author" >
+                      <input id="author" type="text"  name="author" class="form-control" placeholder="Autor" required v-model="book.Author" >
                     </div>
                   </div>
                
@@ -26,7 +24,7 @@
                
                 <div class="row">
                   <div class="col-md-12 form-group">
-                    <input class="btn btn-primary w-100" type="submit" value="Submit">
+                    <input class="btn btn-primary w-100" style="font-size: 1.2rem;" type="submit" value="Submit">
                   </div>
                 </div>
       
@@ -81,3 +79,8 @@
           
   }
 </script>
+
+<style lang="scss" scoped>
+    @import url('../assets/scss/style.scss');
+    @import url('../assets/scss/form-login.scss');
+</style>
