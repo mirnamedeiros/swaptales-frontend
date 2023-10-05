@@ -72,10 +72,34 @@ import vuex from 'vuex'
       },
 
       methods: {
-		login: async function() {
-
+		login: async function(e) {
+			e.preventDefault();
 			const auth = { username: this.auth.username, password: this.auth.password };
-			alert(JSON.stringify(auth))
+			try {
+				const response = await axios.post(
+					"http://localhost:8080/swaptales/api/users/login",
+					auth,
+					{
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					}
+				);
+
+				if (response.status === 200) {
+					window.localStorage.clear();
+					window.localStorage.setItem("jwtToken", response.data.token);
+					window.localStorage.setItem("currentUser", response.data.user.id);
+					alert(JSON.stringify(response.data));
+					window.location.href = '/books';
+					alert('Logado com sucesso');
+				} else {
+					alert("Erro de autenticação: " + response.statusText);
+				}
+			} catch (error) {
+				console.error("Erro ao fazer login:", error);
+			}
+
 			// fetch('http://localhost:8080/swaptales/api/users/login', {
             //       method: 'POST',
             //       headers: {
@@ -91,6 +115,8 @@ import vuex from 'vuex'
 			// 		}      
 			// 		return response.json();
 			// 	}) .then(data => console.log(data));
+
+			/*
 			const res = await axios.post("http://localhost:8080/swaptales/api/users/login", JSON.stringify(auth), {headers: {
                       'Content-Type': 'application/json',
                   }})
@@ -100,6 +126,9 @@ import vuex from 'vuex'
 				window.localStorage.setItem("jwtToken", response.data.accessToken);
 				window.location.href = "/books";
 			} 
+
+			*/
+
 			// .then((response) => {
 			// 	if (response.data.accessToken) {
 			// 	window.localStorage.clear();

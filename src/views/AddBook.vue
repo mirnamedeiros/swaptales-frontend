@@ -8,20 +8,26 @@
                 <!--Title-->
                 <div class="row">
                   <div class="col-md-12 form-group mb-3">
-                    <label for="title" class="form-label">Title</label>
-                    <input id="title"  type="text" name="title" class="form-control" placeholder="Title" required v-model="book.title">
+                    <label for="title" class="form-label">Titulo</label>
+                    <input id="title"  type="text" name="title" class="form-control" placeholder="Insira o titulo" required v-model="book.title">
                   </div>
                 </div>
 
                 
                 <!--Author-->
                 <div class="row">
-                    <div class="col-md-12 form-group mb-3">
-                      <label for="author" class="form-label">Author</label>
-                      <input id="author" type="text"  name="author" class="form-control" placeholder="author" required v-model="book.Author" >
-                    </div>
+                  <div class="col-md-12 form-group mb-3">
+                    <label for="author" class="form-label">Autor</label>
+                    <input id="author" type="text"  name="author" class="form-control" placeholder="Insira o autor" required v-model="book.author" >
                   </div>
+                </div>
                
+                <div class="row">
+                  <div class="col-md-12 form-group mb-3">
+                    <label for="edition" class="form-label">Edição</label>
+                    <input id="edition" type="text"  name="edition" class="form-control" placeholder="Insira a edição" required v-model="book.edition" >
+                  </div>
+                </div>
                 
                
                 <div class="row">
@@ -56,25 +62,37 @@
       data() {
           return {
               book : {
-                  title: '',
-                  Author: '',
+                title: "",
+                author: "",
+                edition: 1,
+                ownerUserId: localStorage.getItem('currentUser')
               }
           }
       },
 
       methods: {
           addBook(){
-              fetch('http://localhost:8080/add', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify(this.Book)
+
+              alert(JSON.stringify(this.book))
+
+              fetch('http://localhost:8080/swaptales/api/books', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.book),
               })
-              .then(data => {
-                  console.log(data)
-                  this.$router.push("/");
-              })
+                .then(response => {
+                  if (response.status === 200) {
+                    console.log('Livro adicionado com sucesso');
+                    this.$router.push('/books');
+                  } else {
+                    console.error('Erro ao adicionar livro:', response.statusText);
+                  }
+                })
+                .catch(error => {
+                  console.error('Erro ao fazer a solicitação:', error);
+                });
 
           }
       },
