@@ -1,5 +1,6 @@
 <template>
     <main>
+      <NavBar/>
         <div class="my-5">
             <div class="mx-auto w-25 " style="max-width:100%;">
               <h2 class="text-center mb-3">Add Book</h2>
@@ -37,43 +38,46 @@
             </div>
           </div>
     </main>
+    <!-- <Footer/> -->
 </template>
 
 
 <script>
+  import NavBar from '../components/Navbar.vue'
+  import Footer from '../components/Footer.vue'
 
-    export default {
-        name: 'AddBook',
-        components: {
-        },
+  export default {
+      name: 'AddBook',
+      components: {
+        NavBar, 
+        Footer
+      },
 
-        data() {
-            return {
-                book : {
-                    title: '',
-                    Author: '',
-                }
-            }
-        },
+      data() {
+          return {
+              book : {
+                  title: '',
+                  Author: '',
+              }
+          }
+      },
 
-        methods: {
-            addBook(){
-                fetch('http://localhost:8080/add', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(this.Book)
-                })
-                .then(data => {
-                    console.log(data)
-                    this.$router.push("/");
-                })
+      methods: {
+          addBook(){
+              fetch('http://localhost:8080/add', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(this.Book)
+              })
+              .then(data => {
+                  console.log(data)
+                  this.$router.push("/");
+              })
 
-            }
-        },
-            
-    }
-
-
+          }
+      },
+          
+  }
 </script>

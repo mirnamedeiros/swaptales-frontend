@@ -1,9 +1,11 @@
 <script>
+import NavBar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 
 export default {
     name: 'Profile',
     components: {
+        NavBar,
         Footer
     }
 }
@@ -11,6 +13,7 @@ export default {
 
 <template>
     <main>
+        <NavBar/>
         <div class="container mt-5 d-flex justify-content-center flex-column align-items-center">
             <div class="card-profile p-3">
                 <div class="d-flex align-items-center">
@@ -20,7 +23,7 @@ export default {
                     </div>
                     <div class="ml-3 w-100">
                         <h4 class=" mx-2 mb-0 mt-0">Alex Morisson</h4>
-                        <div class="p-2 m-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                        <div class="p-2 m-2 d-flex justify-content-between rounded stats">
                             <div class="p-1 d-flex flex-column align-items-center">
                                 <span class="articles">Lidos</span>
                                 <span class="number1">25</span>
@@ -136,7 +139,7 @@ export default {
 </template>
 
 
-<style>
+<style lang="scss">
     .whiteLink{
         text-decoration: none;
         color: #000;

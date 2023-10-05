@@ -1,5 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ViewBooks from '../views/ViewBooks.vue'
+import AddBook from '../views/AddBook.vue'
+import UpdateBook from '../views/UpdateBook.vue'
+import UserProfile from '../views/UserProfile.vue'
+import Login from '../views/Login.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,28 +12,28 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
+      component: Login
+    },
+    {
+      path: '/books',
+      name: 'books',
       component: ViewBooks
     },
     {
       path: '/add',
       name: 'add',
-      component: () => import ('../views/AddBook.vue')
+      component: AddBook
     },
     {
       path: '/edit/:id',
       name: 'edit',
-      component: () => import ('../views/UpdateBook.vue')
+      component: UpdateBook
     },
     {
       path: '/profile',
       name: 'profile',
-      component: () => import ('../views/UserProfile.vue')
+      component: UserProfile
     },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import ('../views/Login.vue')
-    }
   ]
 })
 

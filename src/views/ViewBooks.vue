@@ -1,9 +1,11 @@
 <script>
+import NavBar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
 
     export default {
         name: 'Viewbooks',
         components: {
+            NavBar,
             Footer
         },
         head: {
@@ -45,6 +47,7 @@ import Footer from '../components/Footer.vue'
 
 <template>
     <main>
+        <NavBar/>
         <!-- Table-->
         <div class="container my-5">
             <div class="row">
@@ -121,3 +124,7 @@ import Footer from '../components/Footer.vue'
         <Footer />
     </main>
 </template>
+
+<style lang="scss" scoped>
+    @import url('../assets/scss/card-book.scss');
+</style>

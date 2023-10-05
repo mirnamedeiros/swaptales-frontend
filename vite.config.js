@@ -17,7 +17,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        includePaths: ['node_modules']
+        prependData: `@import "@/styles/_variables.scss";`
       },
     },
   },

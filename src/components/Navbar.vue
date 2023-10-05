@@ -1,4 +1,4 @@
-<script>
+<script scoped>
     // export default {
     //     methods: {
     //         menuToggle() {
@@ -22,7 +22,7 @@
 
 <template>
     <main>
-        <div id="menuHolder" class="drawMenu">
+        <div id="menuHolder">
         <div role="navigation" class="sticky-top border-bottom border-top" id="mainNavigation">
             <div class="flexMain">
             <div class="flex2 text-start d-none d-md-block">
@@ -32,7 +32,7 @@
                 </button>
             </div>
             <button id="siteBrand" class="whiteLink siteLink">
-                    <a href="/" class="col-2 align-self-end">SWAPTALES</a>
+                    <a href="/books" class="col-2 align-self-end">SWAPTALES</a>
                 </button>
         
             <div class="flex2 text-end d-block d-md-none">
@@ -40,9 +40,9 @@
             </div>
         
             <div class="flex2 text-end d-none d-md-block">
-                <button class="whiteLink siteLink">REGISTRAR</button>
+                <!-- <button class="whiteLink siteLink">REGISTRAR</button> -->
                 <button class="whiteLink siteLink">
-                    <a href="/login" class="col-2 align-self-end">LOGIN</a>
+                    <a href="/" class="col-2 align-self-end">LOGIN</a>
                 </button>
             </div>
             </div>
