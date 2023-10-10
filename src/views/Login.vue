@@ -8,7 +8,7 @@
 							<div class="text w-100">
 								<h2>Bem vindo!</h2>
 								<p>Ainda não tem uma conta?</p>
-								<a href="#" class="btn btn-white btn-outline-white">Cadastre-se</a>
+								<a href="/register" class="btn btn-white btn-outline-white">Cadastre-se</a>
 							</div>
 			      </div>
 						<div class="login-wrap p-4 p-lg-5">
@@ -99,47 +99,8 @@ import vuex from 'vuex'
 			} catch (error) {
 				console.error("Erro ao fazer login:", error);
 			}
-
-			// fetch('http://localhost:8080/swaptales/api/users/login', {
-            //       method: 'POST',
-            //       headers: {
-            //           'Content-Type': 'application/json;charset=UTF-8',
-            //       },
-            //       body: JSON.stringify(auth),
-            //   }) .then((response) => {
-			// 		if (response.status == 200) {
-			// 			alert(response.statusText);
-			// 		}
-			// 		else {
-			// 			alert("Error: " + response.statusText);
-			// 		}      
-			// 		return response.json();
-			// 	}) .then(data => console.log(data));
-
-			/*
-			const res = await axios.post("http://localhost:8080/swaptales/api/users/login", JSON.stringify(auth), {headers: {
-                      'Content-Type': 'application/json',
-                  }})
-
-			if(res === undefined){
-				window.localStorage.clear();
-				window.localStorage.setItem("jwtToken", response.data.accessToken);
-				window.location.href = "/books";
-			} 
-
-			*/
-
-			// .then((response) => {
-			// 	if (response.data.accessToken) {
-			// 	window.localStorage.clear();
-			// 	window.localStorage.setItem("jwtToken", response.data.accessToken);
-			// 	}
-			// 	window.location.href = "/books";
-			// });
 		}
-			
       }
-          
   }
 </script>
 

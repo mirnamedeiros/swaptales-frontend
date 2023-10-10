@@ -3,6 +3,7 @@ import ViewBooks from '../views/ViewBooks.vue'
 import AddBook from '../views/AddBook.vue'
 import UpdateBook from '../views/UpdateBook.vue'
 import UserProfile from '../views/UserProfile.vue'
+import AddUser from '../views/AddUser.vue'
 import Login from '../views/Login.vue'
 
 
@@ -33,6 +34,11 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: UserProfile
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: AddUser
     },
   ]
 })
