@@ -1,22 +1,15 @@
 <script scoped>
-    // export default {
-    //     methods: {
-    //         menuToggle() {
-    //             var menuHolder = document.getElementById('menuHolder')
-    //             menuHolder.classList.toggle('drawMenu')
-    //         //     if(menuHolder.className === "drawMenu") menuHolder.className = ""
-    //         // else menuHolder.classList.add()
-    //         },
-    //     }
-    // }
     export default {
-    methods: {
-      menuToggle: function() {
-        var menuHolder = document.getElementById('menuHolder')
-        if(menuHolder.className === "drawMenu") menuHolder.className = ""
-        else menuHolder.classList.add()
-      }
-    }
+        name: 'NavBar',
+        components: {},
+        data() {return {}},
+        methods: {
+            menuToggle: function() {
+                var menuHolder = document.getElementById('menuHolder')
+                if(menuHolder.className === "drawMenu") menuHolder.className = ""
+                else menuHolder.classList.add("drawMenu")
+            }
+        }
   }
 </script>
 
@@ -26,7 +19,7 @@
         <div role="navigation" class="sticky-top border-bottom border-top" id="mainNavigation">
             <div class="flexMain">
             <div class="flex2 text-start d-none d-md-block">
-                <button id="menu-btn" class="whiteLink siteLink" style="border-right:1px solid #eaeaea" onclick="menuToggle()"><i class="fas fa-bars me-2"></i> MENU</button>
+                <button id="menu-btn" class="whiteLink siteLink" style="border-right:1px solid #eaeaea" @click="menuToggle()"><i class="fas fa-bars me-2"></i> MENU</button>
                 <button class="whiteLink siteLink">
                     <a href="/profile" class="col-2 align-self-end">PERFIL</a>
                 </button>
@@ -40,7 +33,6 @@
             </div>
         
             <div class="flex2 text-end d-none d-md-block">
-                <!-- <button class="whiteLink siteLink">REGISTRAR</button> -->
                 <button class="whiteLink siteLink">
                     <a href="/" class="col-2 align-self-end">LOGIN</a>
                 </button>
@@ -52,7 +44,7 @@
             <div class="p-4 border-bottom">
             <div class='row'>
                 <div class="text-end ">
-                <i class="fas fa-times " role="btn" onclick="menuToggle()"></i>
+                <i class="fas fa-times " role="btn" @click="menuToggle()"></i>
                 </div>
             </div>
             </div>

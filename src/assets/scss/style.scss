@@ -170,7 +170,7 @@ button.siteLink {
 }
 #menuDrawer {
   background:#fff;
-  position:fixed;
+  position:absolute;
   height:100vh;
   overflow:auto;
   z-index:12312;
@@ -189,9 +189,6 @@ button.siteLink {
 }
 .drawMenu > #menuDrawer {
   transform : translateX(0%);
-}
-.drawMenu > #mainNavigation {
-  transform : translateX(25%);
 }
 .fa-times {
   cursor : pointer
