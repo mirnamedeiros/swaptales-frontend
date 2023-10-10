@@ -47,7 +47,9 @@ export default {
                             </div>
                         </div>
                         <div class="button mt-2 d-flex flex-row align-items-center">
-                            <button class="btn btn-sm btn-primary w-100 mx-2">Editar</button>
+                            <button class="btn btn-sm btn-primary w-100 mx-2">
+                                <router-link to="/editUser" style="text-decoration: none;">Editar</router-link>
+                            </button>
                             <button class="btn btn-sm btn-primary w-100 ml-2 mx-2">Seguir</button>
                         </div>
                     </div>

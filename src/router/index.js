@@ -5,6 +5,7 @@ import UpdateBook from '../views/UpdateBook.vue'
 import UserProfile from '../views/UserProfile.vue'
 import AddUser from '../views/AddUser.vue'
 import Login from '../views/Login.vue'
+import EditUser from '../views/EditUser.vue'
 
 
 const router = createRouter({
@@ -39,6 +40,11 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: AddUser
+    },
+    {
+      path: '/editUser',
+      name: 'editUser',
+      component: EditUser
     },
   ]
 })
