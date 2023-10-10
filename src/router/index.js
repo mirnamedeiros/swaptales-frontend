@@ -6,6 +6,7 @@ import UserProfile from '../views/UserProfile.vue'
 import AddUser from '../views/AddUser.vue'
 import Login from '../views/Login.vue'
 import EditUser from '../views/EditUser.vue'
+import BookDetail from '../views/BookDetail.vue'
 
 
 const router = createRouter({
@@ -45,6 +46,11 @@ const router = createRouter({
       path: '/editUser',
       name: 'editUser',
       component: EditUser
+    },
+    {
+      path: '/book-detail',
+      name: 'book-detail',
+      component: BookDetail
     },
   ]
 })

@@ -57,7 +57,7 @@ import Footer from '../components/Footer.vue'
                         <!-- <a href="/add" class="btn btn-primary col-2 align-self-end">Add book</a> -->
                     </div>
                     <div class="card-wrapper">
-                        <div class="card" style="background-image: url('src/assets/images/a-feast-of-crows.jpg');">
+                        <a href="/book-detail" class="card" style="background-image: url('src/assets/images/a-feast-of-crows.jpg');">
                             <div class="card-head">
                             <svg viewBox="0 0 100 100">
                                 <h2>A Feast for Crows</h2>
@@ -71,8 +71,8 @@ import Footer from '../components/Footer.vue'
                                 <button><i class="fa-regular fa-user"></i></button>
                             </div>
                             </div>
-                        </div>
-                        <div class="card" style="background-image: url('src/assets/images/a-clash-of-kings.jpg');">
+                        </a>
+                        <a class="card" style="background-image: url('src/assets/images/a-clash-of-kings.jpg');">
                             <div class="card-head">
                             <svg viewBox="0 0 100 100">
                                 <h2>A Clash of Kings</h2>
@@ -86,8 +86,8 @@ import Footer from '../components/Footer.vue'
                                 <button><i class="fa-regular fa-user"></i></button>
                             </div>
                             </div>
-                        </div>
-                        <div class="card" style="background-image: url('src/assets/images/a-dance-with-dragons.jpg');">
+                        </a>
+                        <a class="card" style="background-image: url('src/assets/images/a-dance-with-dragons.jpg');">
                             <div class="card-head">
                             <svg viewBox="0 0 100 100">
                                 <h2>A Dance with Dragons</h2>
@@ -101,8 +101,8 @@ import Footer from '../components/Footer.vue'
                                 <button><i class="fa-regular fa-user"></i></button>
                             </div>
                             </div>
-                        </div>
-                        <div class="card" style="background-image: url('src/assets/images/a-storm-swords.jpeg');">
+                        </a>
+                        <a class="card" style="background-image: url('src/assets/images/a-storm-swords.jpeg');">
                             <div class="card-head">
                             <svg viewBox="0 0 100 100">
                                 <h2>A Storm of Swords</h2>
@@ -116,7 +116,7 @@ import Footer from '../components/Footer.vue'
                                 <button><i class="fa-regular fa-user"></i></button>
                             </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>

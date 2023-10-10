@@ -29,6 +29,11 @@ $dark-color: #1c2135;
     background-repeat:no-repeat;
     background-position: center center;
     background-size: cover;
+    text-decoration: none;
+
+    h2 {
+      opacity: 0;
+    }
     
     &:before {
       content: '';
@@ -57,6 +62,11 @@ $dark-color: #1c2135;
   
       .card-body {
         transform: translateY(0);
+      }
+
+      h2 {
+        transition: .2s ease all;
+        opacity: 1;
       }
     }
     .card-head {

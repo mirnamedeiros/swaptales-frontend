@@ -19,10 +19,7 @@
         <div role="navigation" class="sticky-top border-bottom border-top" id="mainNavigation">
             <div class="flexMain">
             <div class="flex2 text-start d-none d-md-block">
-                <button id="menu-btn" class="whiteLink siteLink" style="border-right:1px solid #eaeaea" @click="menuToggle()"><i class="fas fa-bars me-2"></i> MENU</button>
-                <button class="whiteLink siteLink">
-                    <a href="/profile" class="col-2 align-self-end">PERFIL</a>
-                </button>
+                <button id="menu-btn" class="whiteLink siteLink" @click="menuToggle()"><i class="fas fa-bars me-2"></i> MENU</button>
             </div>
             <button id="siteBrand" class="whiteLink siteLink">
                     <a href="/books" class="col-2 align-self-end">SWAPTALES</a>
@@ -34,7 +31,7 @@
         
             <div class="flex2 text-end d-none d-md-block">
                 <button class="whiteLink siteLink">
-                    <a href="/" class="col-2 align-self-end">LOGIN</a>
+                    <a href="/profile" class="col-2 align-self-end">PERFIL</a>
                 </button>
             </div>
             </div>
