@@ -25,15 +25,17 @@ import Footer from '../components/Footer.vue'
 
         methods: {
             getbooks(){
-                fetch('http://localhost:8080/books')
-                .then(res => res.json())
+                fetch('http://localhost:8080/swaptales/api/books', {
+                    method: 'GET'
+                })
+                .then(response => response.json())
                 .then(data => {
                     this.books = data
                     console.log(data)
                 })
             },
             deletebook(id){
-                fetch(`http://localhost:8080/book/${id}`, {
+                fetch(`http://localhost:8080/swaptales/api/books/${id}`, {
                     method: 'DELETE'
                 })
                 .then(data => {

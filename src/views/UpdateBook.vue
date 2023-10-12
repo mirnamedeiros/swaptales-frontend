@@ -66,7 +66,7 @@ export default {
 
     methods: {
         getBooks(){
-            fetch(`http://localhost:8080/book/${this.$route.params.id}`)
+            fetch(`http://localhost:8080/swaptales/api/books/${this.$route.params.id}`)
             .then(res => res.json())
             .then(data => {
                 this.book = data;
@@ -75,7 +75,7 @@ export default {
 
         },
         updateBook(){
-            fetch(`http://localhost:8080/book`, {
+            fetch(`http://localhost:8080/swaptales/api/books`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
