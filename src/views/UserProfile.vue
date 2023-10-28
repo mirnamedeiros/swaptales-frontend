@@ -55,7 +55,7 @@ export default {
                     </div>
                 </div>
                 <div class="my-3 separate">
-                    <div class="my-5 text-center container">
+                    <div class="my-5 text-center">
                         <div class="row d-flex align-items-center">
                             <div class="col-1 d-flex align-items-center justify-content-center">
                                 <a href="#carouselExampleIndicators" role="button" data-slide="prev">

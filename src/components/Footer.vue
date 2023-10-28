@@ -4,5 +4,14 @@
             © 2023
             <a style="color: #fff;">UFRN - IMD - <u>DESENVOLVIMENTO WEB II</u></a>
         </div>
-        </footer>
+    </footer>
 </template>
+
+<style lang="scss" scoped>
+    #footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 2.5rem;            /* Footer height */
+    }
+</style>

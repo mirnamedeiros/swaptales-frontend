@@ -65,7 +65,10 @@ body {
   }
 }
 
-
+.container {
+  position: relative;
+  min-height: 100vh;
+}
 
 .btn-primary {
   background-color: #fff;
