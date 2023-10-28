@@ -8,6 +8,7 @@ import Login from '../views/Login.vue'
 import EditUser from '../views/EditUser.vue'
 import BookDetail from '../views/BookDetail.vue'
 import Review from '../views/Review.vue'
+import ReviewUser from '../views/ReviewUser.vue'
 
 
 const router = createRouter({
@@ -57,6 +58,11 @@ const router = createRouter({
       path: '/reviews',
       name: 'reviews',
       component: Review
+    },
+    {
+      path: '/reviewUser',
+      name: 'reviewUser',
+      component: ReviewUser
     },
   ]
 })
