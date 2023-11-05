@@ -9,6 +9,7 @@ import EditUser from '../views/EditUser.vue'
 import BookDetail from '../views/BookDetail.vue'
 import Review from '../views/Review.vue'
 import ReviewUser from '../views/ReviewUser.vue'
+import Swaps from '../views/Swaps.vue'
 
 
 const router = createRouter({
@@ -63,6 +64,11 @@ const router = createRouter({
       path: '/reviewUser',
       name: 'reviewUser',
       component: ReviewUser
+    },
+    {
+      path: '/swapsUser',
+      name: 'swapsUser',
+      component: Swaps
     },
   ]
 })

@@ -55,7 +55,7 @@
             </div>
             </div>
             <div>
-            <a href="#" class="nav-menu-item"><i class="fa fa-exchange me-3"></i>Trocas</a>
+            <a href="/swapsUser" class="nav-menu-item"><i class="fa fa-exchange me-3"></i>Trocas</a>
             <a href="#" class="nav-menu-item"><i class="fa-regular fa-clock me-3"></i>Empréstimos</a>
             <a href="#" class="nav-menu-item"><i class="fa-regular fa-bookmark me-3"></i>Melhores Livros</a>
             <a href="/reviews" class="nav-menu-item"><i class="fa-regular fa-star me-3"></i>Reviews</a>
