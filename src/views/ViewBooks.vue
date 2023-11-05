@@ -1,11 +1,13 @@
 <script>
 import NavBar from '../components/Navbar.vue'
+import Book from '../components/Book.vue'
 import Footer from '../components/Footer.vue'
 
     export default {
         name: 'Viewbooks',
         components: {
             NavBar,
+            Book,
             Footer
         },
         head: {
@@ -15,7 +17,32 @@ import Footer from '../components/Footer.vue'
         },
         data() {
             return {
-                books: []
+                books: [
+                    {id:1,
+                    imagePath:"src/assets/images/a-feast-of-crows.jpg",
+                    author:"George R. R. Martin",
+                    title:"A Feast for Crows",
+                    text:"The highly anticipated world championship fight will take place at 10am and is the second major boxing blockbuster in the nation after 43 years.",
+                    link:"#"},
+                    {id:2,
+                    imagePath:"src/assets/images/a-clash-of-kings.jpg",
+                    author:"George R. R. Martin",
+                    title:"A Clash Of Kings",
+                    text:"The highly anticipated world championship fight will take place at 10am and is the second major boxing blockbuster in the nation after 43 years.",
+                    link:"#"},
+                    {id:3,
+                    imagePath:"src/assets/images/a-dance-with-dragons.jpg",
+                    author:"George R. R. Martin",
+                    title:"A Dance With Dragons",
+                    text:"The highly anticipated world championship fight will take place at 10am and is the second major boxing blockbuster in the nation after 43 years.",
+                    link:"#"},
+                    {id:4,
+                    imagePath:"src/assets/images/a-storm-swords.jpeg",
+                    author:"George R. R. Martin",
+                    title:"A Storm of Swords",
+                    text:"The highly anticipated world championship fight will take place at 10am and is the second major boxing blockbuster in the nation after 43 years.",
+                    link:"#"}
+                ]
             }
         },
 
@@ -45,88 +72,23 @@ import Footer from '../components/Footer.vue'
             }
         },
     }
+
 </script>
 
 <template>
     <main>
         <NavBar/>
-        <!-- Table-->
-        <div class="container my-5">
-            <div class="row">
-                <div class="col-md-12 d-flex flex-column">
-                    <div class="options d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary col-1 align-self-end"><i class="fa-solid fa-magnifying-glass pr-2"></i></button>
-                        <!-- <a href="/add" class="btn btn-primary col-2 align-self-end">Add book</a> -->
-                    </div>
-                    <div class="card-wrapper">
-                        <a href="/book-detail" class="card" style="background-image: url('src/assets/images/a-feast-of-crows.jpg');">
-                            <div class="card-head">
-                            <svg viewBox="0 0 100 100">
-                                <h2>A Feast for Crows</h2>
-                            </svg>
-                            </div>
-                            <div class="card-body">
-                            <div class="title">George R. R. Martin</div>
-                            <div class="actions">
-                                <button><i class="fa-regular fa-heart"></i></button>
-                                <button><i class="fa fa-exchange"></i></button>
-                                <button><i class="fa-regular fa-user"></i></button>
-                            </div>
-                            </div>
-                        </a>
-                        <a class="card" style="background-image: url('src/assets/images/a-clash-of-kings.jpg');">
-                            <div class="card-head">
-                            <svg viewBox="0 0 100 100">
-                                <h2>A Clash of Kings</h2>
-                            </svg>
-                            </div>
-                            <div class="card-body">
-                            <div class="title">George R. R. Martin</div>
-                            <div class="actions">
-                                <button><i class="fa-regular fa-heart"></i></button>
-                                <button><i class="fa fa-exchange"></i></button>
-                                <button><i class="fa-regular fa-user"></i></button>
-                            </div>
-                            </div>
-                        </a>
-                        <a class="card" style="background-image: url('src/assets/images/a-dance-with-dragons.jpg');">
-                            <div class="card-head">
-                            <svg viewBox="0 0 100 100">
-                                <h2>A Dance with Dragons</h2>
-                            </svg>
-                            </div>
-                            <div class="card-body">
-                            <div class="title">George R. R. Martin</div>
-                            <div class="actions">
-                                <button><i class="fa-regular fa-heart"></i></button>
-                                <button><i class="fa fa-exchange"></i></button>
-                                <button><i class="fa-regular fa-user"></i></button>
-                            </div>
-                            </div>
-                        </a>
-                        <a class="card" style="background-image: url('src/assets/images/a-storm-swords.jpeg');">
-                            <div class="card-head">
-                            <svg viewBox="0 0 100 100">
-                                <h2>A Storm of Swords</h2>
-                            </svg>
-                            </div>
-                            <div class="card-body">
-                            <div class="title">George R. R. Martin</div>
-                            <div class="actions">
-                                <button><i class="fa-regular fa-heart"></i></button>
-                                <button><i class="fa fa-exchange"></i></button>
-                                <button><i class="fa-regular fa-user"></i></button>
-                            </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+        <div class="container d-flex flex-wrap justify-content-center">
+            <Book v-for="book in books"
+            :key="book.id"
+            :imagePath="book.imagePath"
+            :author="book.author"
+            :title="book.title"
+            :text="book.text"
+            :link="book.link"/>
         </div>
-        <Footer />
+        <Footer/>
     </main>
 </template>
 
-<style lang="scss" scoped>
-    @import url('../assets/scss/card-book.scss');
-</style>
+

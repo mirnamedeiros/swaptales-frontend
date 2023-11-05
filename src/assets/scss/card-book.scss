@@ -3,124 +3,87 @@ $primary-color: #5a6794;
 $secondary-color: #8794c0;
 $emphasis-color: #d8cdb0;
 $dark-color: #1c2135;
+$white: #fff;
 
-.card-wrapper {
-    margin-top: 1em;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
+.card {
+  width: 230px;
+  max-height: 450px;
+  background: $white;
+  border: 2px solid $dark-color;
+  border-radius: 0;
+  box-shadow: 4px 4px $secondary-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 20px;
+
+  &:last-child {
+    justify-content: cover;
   }
-  
-  .card {
-    position: relative;
-    background: white;
-    border: 4px solid $dark-color;
-    box-shadow: 8px 8px 0 #a1aab9;
-    min-width: 280px;
-    max-width: 280px;
-    height: 380px;
-    display: flex;
-    flex-direction: column;
+
+  .card-img {
+    width: 100%;
+    height: 260px;
     overflow: hidden;
-    margin: 10px;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
     border-radius: 0;
-      overflow: hidden;
-    background-repeat:no-repeat;
-    background-position: center center;
-    background-size: cover;
-    text-decoration: none;
-
-    h2 {
-      opacity: 0;
-    }
-    
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(248, 247, 216, 0);
-      transition: background 0.3s ease; /* Transition effect */
-      z-index: 1;
-    }
+  }
   
-    &:hover::before {
-      background: rgba(255, 255, 255, 0.9); /* White on hover */
-    }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   
-    &:hover, &.hover {
-      border-color: $dark-color;
+  .card-title {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    color: $dark-color;
+  }
   
-      .card-head {
-        transform: translateY(0);
-        transform: translateX(5%);
-        color: $dark-color;
-      }
+  .card-subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    color: $primary-color;
+  }
   
-      .card-body {
-        transform: translateY(0);
+  .card-divider {
+    width: 100%;
+    border: 2px solid $dark-color;
+    margin: .1em 0;
+  }
+  
+  .card-footer {
+    width: 100%;
+    border-top: 3px solid $secondary-color;
+    margin: .1em 0;
+    background: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  
+    .icons {
+      margin-top: .4em;
+      font-size: 1.3em;
+      color: $dark-color;
+      text-decoration: none;
+  
+      &:hover {
+        cursor: pointer;
+        transition: transform 0.3s;
+        transform: translateY(-5px);
       }
-
-      h2 {
-        transition: .2s ease all;
-        opacity: 1;
-      }
-    }
-    .card-head {
-      transform: translate(10%,40%);
-      transition: .3s ease all;
-      z-index: 2;
-      color: #fff;
-      svg {
-        width: 120px;
-        height: 120px;
-        path {
-          fill: $secondary-color;
-        }
-      }
-      h2 {
-        font-family: 'Barlow', sans-serif;
-        margin: 0;
-        padding: 0 1rem;
-        max-width: 240px;
-      }
-    }
-    .card-body {
-      transform: translateY(100%);
-      transition: .3s ease all;
-      z-index: 2;
-      .title {
-        font-family: 'Barlow', sans-serif;
-        padding: 0 1rem 0.25rem;
-        color: $primary-color;
-      }
-      .desc {
-        padding: 0.5rem 1rem;
-        order: 99;
-      }
-      .actions {
-        order: 100;
-        padding: 0.5rem 1rem;
-        button {
-          background: transparent;
-          border: 0;
-          color: $primary-color;
-          font-size: 20px;
-          width: 32%;
-          padding: 10px 0;
-          cursor: pointer;
-          transition: .3s ease all;
-          &:hover {
-            color: $primary-color;
-            transform: translateY(-5px);
-          }
-        }
-      }
-    }
-    @media only screen and (max-width: 767px) {
-      width: 100%;
     }
   }
+
+  &:hover {
+    cursor: pointer;
+    transition: transform 0.3s;
+    transform: translateY(-5px);
+  }
+}
