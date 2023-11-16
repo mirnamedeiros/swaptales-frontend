@@ -1,70 +1,3 @@
-<template>
-    <main>
-        <div class="my-5">
-            <div class="mx-auto w-25 " style="max-width:100%;">
-                <h2 class="text-center mb-3">Cadastro do Usuario</h2>
-                <form @submit.prevent="addUser">
-
-                <div class="row">
-                    <div class="col-md-12 form-group mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input id="username" type="text"  name="username" class="form-control" placeholder="Insira o username" required v-model="user.username" >
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 form-group mb-3">
-                    <label for="password" class="form-label">Senha</label>
-                    <input id="password" type="password"  name="password" class="form-control" placeholder="Insira a senha" required v-model="user.password" >
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 form-group mb-3">
-                    <label for="name" class="form-label">Nome</label>
-                    <input id="name"  type="text" name="name" class="form-control" placeholder="Insira o nome completo" required v-model="user.name">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 form-group mb-3">
-                    <label for="cpf" class="form-label">CPF</label>
-                    <input id="cpf" type="text"  name="cpf" class="form-control" placeholder="Insira o CPF" required v-model="user.cpf" >
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-12 form-group mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input id="email" type="email"  name="email" class="form-control" placeholder="Insira o email" required v-model="user.email" >
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 form-group mb-3">
-                    <label for="telephone" class="form-label">Telefone</label>
-                    <input id="telephone" type="text"  name="telephone" class="form-control" placeholder="Insira o telefone" required v-model="user.telephone" >
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col-md-12 form-group">
-                    <input class="btn btn-primary w-100" style="font-size: 1.2rem;" type="submit" value="Cadastrar">
-                    </div>
-                </div>
-        
-                <div>
-                    
-                </div>
-                </form>
-        
-            </div>
-        </div>
-    </main>
-    <!-- <Footer/> -->
-</template>
-
-
 <script>
   import NavBar from '../components/Navbar.vue'
   import Footer from '../components/Footer.vue'
@@ -118,6 +51,79 @@
           
   }
 </script>
+
+<template>
+    <main>
+        <div class="my-5">
+            <div class="mx-auto w-50 " style="max-width:100%;">
+                <h2 class="text-center mb-3">Cadastro do Usuario</h2>
+                <form @submit.prevent="addUser">
+
+                <div class="row">
+                    <div class="col-md-12 form-group mb-3">
+                    <label for="username" class="form-label">Usuário</label>
+                    <input id="username" type="text"  name="username" class="form-control" placeholder="Insira o usuário" required v-model="user.username" >
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 form-group mb-3">
+                    <label for="password" class="form-label">Senha</label>
+                    <input id="password" type="password"  name="password" class="form-control" placeholder="Insira a senha" required v-model="user.password" >
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 form-group mb-3">
+                    <label for="name" class="form-label">Nome</label>
+                    <input id="name"  type="text" name="name" class="form-control" placeholder="Insira o nome completo" required v-model="user.name">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 form-group mb-3">
+                    <label for="cpf" class="form-label">CPF</label>
+                    <input id="cpf" type="text"  name="cpf" class="form-control" placeholder="Insira o CPF" required v-model="user.cpf" >
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12 form-group mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input id="email" type="email"  name="email" class="form-control" placeholder="Insira o email" required v-model="user.email" >
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 form-group mb-3">
+                    <label for="telephone" class="form-label">Telefone</label>
+                    <input id="telephone" type="text"  name="telephone" class="form-control" placeholder="Insira o telefone" required v-model="user.telephone" >
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 form-group mb-3">
+                    <input id="file" type="file" accept="image/*" class="form-control">
+                    </div>
+                </div>
+                
+                
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                    <input class="btn btn-primary w-100" style="font-size: 1.2rem;" type="submit" value="Cadastrar">
+                    </div>
+                </div>
+        
+                <div>
+                    
+                </div>
+                </form>
+        
+            </div>
+        </div>
+    </main>
+    <!-- <Footer/> -->
+</template>
 
 <style lang="scss" scoped>
     @import url('../assets/scss/style.scss');

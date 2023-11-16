@@ -30,6 +30,18 @@ body{
 	background: #f8f9fd;
 	color: lighten($black,50%);
 }
+
+.container-login {
+	display: flex;
+	justify-content: center;
+}
+
+.login {
+	margin-top: 20vh;
+	width: 80%;
+	display: flex;
+}
+
 a {
 	transition: .3s all ease;
 	color: $primary;
@@ -155,30 +167,6 @@ input.form-control {
 		box-shadow: none;
 		background: rgba(0,0,0,.07);
 		border-color: transparent;
-	}
-}
-
-.social-media{
-	position: relative;
-	width: 100%;
-	.social-icon{
-		display: block;
-		width: 40px;
-		height: 40px;
-		background: transparent;
-		border: 1px solid rgba(0,0,0,.05);
-		font-size: 16px;
-		margin-right: 5px;
-		// border-radius: 50%;
-		span{
-			color: lighten($black,60%);
-		}
-		&:hover, &:focus{
-			background: $primary;
-			span{
-				color: $white;
-			}
-		}
 	}
 }
 
@@ -327,6 +315,20 @@ input.form-control {
 		}
 	}
 }
+
+// input[type=file]::file-selector-button {
+// 	margin-right: 20px;
+// 	border: none;
+// 	background: $primary-color;
+// 	padding: 10px 20px;
+// 	color: #fff;
+// 	cursor: pointer;
+// 	transition: background .2s ease-in-out;
+//   }
+
+//   input[type=file]::file-selector-button:hover {
+// 	background: #0d45a5;
+//   }
 
 span.checkmark::after {
     border-radius: 0px!important;
