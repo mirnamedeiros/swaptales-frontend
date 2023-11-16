@@ -10,6 +10,7 @@ import BookDetail from '../views/BookDetail.vue'
 import Review from '../views/Review.vue'
 import ReviewUser from '../views/ReviewUser.vue'
 import Swaps from '../views/Swaps.vue'
+import BestBooks from '../views/BestBooks.vue'
 
 
 const router = createRouter({
@@ -69,6 +70,11 @@ const router = createRouter({
       path: '/swapsUser',
       name: 'swapsUser',
       component: Swaps
+    },
+    {
+      path: '/bestbooks',
+      name: 'bestbooks',
+      component: BestBooks
     },
   ]
 })
