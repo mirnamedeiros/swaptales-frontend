@@ -336,3 +336,11 @@ input[type="file"] {
 span.checkmark::after {
     border-radius: 0px!important;
 }
+
+.form-select {
+	border-radius: 0;
+	border: 1px solid $dark-color;
+	font-size: 16px;
+	height: 48px;
+}
+  
