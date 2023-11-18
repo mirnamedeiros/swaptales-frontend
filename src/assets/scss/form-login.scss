@@ -142,7 +142,7 @@ input.form-control {
 //FORM CONTROL
 .form-control {
 	height: 48px;
-	background: rgba(0,0,0,.05);
+	background: $white;
 	color: $black;
 	font-size: 16px;
 	box-shadow: none;
@@ -195,7 +195,7 @@ input.form-control {
   
 }
 
-input.form-control {
+.form-control {
     
     &:focus {
         border: 3px solid $secondary-color;
@@ -316,20 +316,23 @@ input.form-control {
 	}
 }
 
-// input[type=file]::file-selector-button {
-// 	margin-right: 20px;
-// 	border: none;
-// 	background: $primary-color;
-// 	padding: 10px 20px;
-// 	color: #fff;
-// 	cursor: pointer;
-// 	transition: background .2s ease-in-out;
-//   }
+input[type="file"] {
+	padding: 20px 0;
 
-//   input[type=file]::file-selector-button:hover {
-// 	background: #0d45a5;
-//   }
+	&::file-selector-button {
+		border-radius: 0;
+		border: none;
+		background-color: $secondary-color;
+		color: $white;
+		padding: 12px;
+		margin-right: 10px;
 
+		&:hover{
+			background-color: $primary-color;
+			cursor: pointer;
+		}
+	}
+}
 span.checkmark::after {
     border-radius: 0px!important;
 }
