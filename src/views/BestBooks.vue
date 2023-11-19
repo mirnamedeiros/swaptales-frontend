@@ -107,10 +107,6 @@ export default{
         }
     }
 
-    .separate {
-        border-top: 3px solid $secondary-color;
-    }
-
     .podium {
 
         display: flex;
@@ -133,6 +129,7 @@ export default{
 	width: 100%;
 	border-collapse:separate;
     border-spacing: 0 10px;
+    border-top: 3px solid $secondary-color;
 	thead{
         th{
             border: none;
