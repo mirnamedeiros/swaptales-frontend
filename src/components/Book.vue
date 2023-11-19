@@ -6,6 +6,7 @@
             author: String, // Propriedade para o autor
             title: String,  // Propriedade para o título
             text: String,   // Propriedade para o texto
+            goal: Number,
             link: String    // Propriedade para o link (href)
         },
         computed: {
@@ -17,7 +18,10 @@
 </script>
 
 <template>
-    <div class="card m-2">
+    <div class="card mx-3 my-5">
+        <div v-if="goal == 1" class="ribbon orange"><i class="fa-solid fa-dollar-sign fa-lg"></i></div> <!-- venda -->
+        <div v-else-if="goal == 2" class="ribbon blue"><i class="fa-solid fa-arrow-right-arrow-left fa-lg"></i></div> <!-- troca -->
+        <div v-else-if="goal == 3" class="ribbon purple"><i class="fa-regular fa-clock fa-lg"></i></div> <!-- empréstimo -->
         <div class="card-img">
             <img :src=imagePath alt="">
         </div>

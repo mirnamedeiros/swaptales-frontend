@@ -25,7 +25,6 @@
                 <option value="1" selected>Venda</option>
                 <option value="2">Troca</option>
                 <option value="3">Empréstimo</option>
-                <option value="4">Troca e Venda</option>
               </select>
 
               <div class="col-md-12 form-group mb-3">

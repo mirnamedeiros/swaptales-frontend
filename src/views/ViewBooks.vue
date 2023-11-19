@@ -23,24 +23,28 @@ import Footer from '../components/Footer.vue'
                     author:"George R. R. Martin",
                     title:"A Feast for Crows",
                     text:"The highly anticipated world championship fight will take place at 10am and is the second major boxing blockbuster in the nation after 43 years.",
+                    goal:1,
                     link:"#"},
                     {id:2,
                     imagePath:"src/assets/images/a-clash-of-kings.jpg",
                     author:"George R. R. Martin",
                     title:"A Clash Of Kings",
                     text:"The highly anticipated world championship fight will take place at 10am and is the second major boxing blockbuster in the nation after 43 years.",
+                    goal:2,
                     link:"#"},
                     {id:3,
                     imagePath:"src/assets/images/a-dance-with-dragons.jpg",
                     author:"George R. R. Martin",
                     title:"A Dance With Dragons",
                     text:"The highly anticipated world championship fight will take place at 10am and is the second major boxing blockbuster in the nation after 43 years.",
+                    goal:3,
                     link:"#"},
                     {id:4,
                     imagePath:"src/assets/images/a-storm-swords.jpeg",
                     author:"George R. R. Martin",
                     title:"A Storm of Swords",
                     text:"The highly anticipated world championship fight will take place at 10am and is the second major boxing blockbuster in the nation after 43 years.",
+                    goal:2,
                     link:"#"}
                 ]
             }
@@ -85,6 +89,7 @@ import Footer from '../components/Footer.vue'
             :author="book.author"
             :title="book.title"
             :text="book.text"
+            :goal="book.goal"
             :link="book.link"/>
         </div>
         <Footer/>
