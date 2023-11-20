@@ -11,6 +11,7 @@ import Review from '../views/Review.vue'
 import ReviewUser from '../views/ReviewUser.vue'
 import Swaps from '../views/Swaps.vue'
 import BestBooks from '../views/BestBooks.vue'
+import Loans from '../views/Loans.vue'
 
 
 const router = createRouter({
@@ -75,6 +76,11 @@ const router = createRouter({
       path: '/bestbooks',
       name: 'bestbooks',
       component: BestBooks
+    },
+    {
+      path: '/loans',
+      name: 'loans',
+      component: Loans
     },
   ]
 })
