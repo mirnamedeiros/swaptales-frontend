@@ -21,14 +21,14 @@
                 </div>
 
               <label for="edition" class="form-label">Objetivo</label>
-              <select class="form-select mb-3" aria-label=".form-select-lg example">
-                <option value="1" selected>Venda</option>
-                <option value="2">Troca</option>
-                <option value="3">Empréstimo</option>
+              <select class="form-select mb-3" aria-label=".form-select-lg example" v-model="book.availabilityStatus">
+                <option value="FOR_SALE" selected >Venda</option>
+                <option value="FOR_TRADE">Troca</option>
+                <option value="FOR_LOAN">Empréstimo</option>
               </select>
 
               <div class="col-md-12 form-group mb-3">
-                <input id="file" type="file" accept="image/*"> 
+                <input id="file" type="file" accept="image/*" @change="onFileChange"> 
               </div>
 
                 <div class="col-md-12 form-group">
@@ -61,36 +61,62 @@
                 title: "",
                 author: "",
                 edition: 1,
-                ownerUserId: localStorage.getItem('currentUser')
-              }
+                urlImg: "",
+                ownerUserId: localStorage.getItem('currentUser'),
+                availabilityStatus: "",
+              },
+              file: null,
           }
       },
 
       methods: {
-          addBook(){
+        onFileChange(event) {
+          this.file = event.target.files[0];
+        },
 
-              alert(JSON.stringify(this.book))
+        addBook(){
 
-              fetch('http://localhost:8080/swaptales/api/books', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(this.book),
-              })
-                .then(response => {
-                  if (response.status === 200) {
-                    console.log('Livro adicionado com sucesso');
-                    this.$router.push('/books');
-                  } else {
-                    console.error('Erro ao adicionar livro:', response.statusText);
-                  }
+          const formData = new FormData();
+          formData.append('file', this.file);
+
+          fetch('http://localhost:8080/swaptales/api/images', {
+            method: 'POST',
+            body: formData,
+          }).then(response => {
+              if (!response.ok) {
+                throw new Error(`Erro no upload: ${response.statusText}`);
+              }
+              return response.text();
+            })
+            .then(data => {
+              if(data){
+                console.log(data);
+                this.book.urlImg = data;
+
+                fetch('http://localhost:8080/swaptales/api/books', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(this.book),
                 })
-                .catch(error => {
-                  console.error('Erro ao fazer a solicitação:', error);
-                });
-
-          }
+                  .then(response => {
+                    if (response.status === 200) {
+                      console.log('Livro adicionado com sucesso');
+                      this.$router.push('/books');
+                    } else {
+                      console.error('Erro ao adicionar livro:', response.statusText);
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Erro ao fazer a solicitação:', error);
+                  });
+              }
+            })
+            .catch(error => {
+              console.error('Erro ao fazer a solicitação para a api de imagens:', error);
+            })
+        }
       },
           
   }

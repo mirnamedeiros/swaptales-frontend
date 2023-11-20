@@ -7,7 +7,63 @@ export default {
     components: {
         NavBar,
         Footer
-    }
+    },
+    data() {
+        return {
+            user : {
+                name: "",
+                cpf: "",
+                email: "",
+                telephone: "",
+                username: "",
+                urlImg: "",
+                
+            },
+        }
+    },
+
+    mounted() {
+        this.findUser();
+      },
+
+    methods: {
+
+        findUser(){
+            let id = localStorage.getItem('currentUser');
+
+            fetch(`http://localhost:8080/swaptales/api/users/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao recuperar o usuario: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    if(data){
+                        this.setUser(JSON.parse(data))
+                    }else{
+                        console.log("Usuario não encontrado");
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                })
+        },
+
+        setUser(data){
+            this.user.name = data.name;
+            this.user.cpf = data.cpf;
+            this.user.email = data.email;
+            this.user.telephone = data.telephone;
+            this.user.username = data.username;
+            this.user.urlImg = data.urlImg;
+        }
+    },
 }
 </script>
 
@@ -18,11 +74,11 @@ export default {
             <div class="card-profile p-3">
                 <div class="d-flex align-items-center">
                     <div class="image">
-                        <img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+                        <img :src="user.urlImg"
                             class="m-2" width="155">
                     </div>
                     <div class="ml-3 w-100">
-                        <h4 class=" mx-2 mb-0 mt-0">Alex Morisson</h4>
+                        <h4 class=" mx-2 mb-0 mt-0">{{user.name}}</h4>
                         <div class="p-2 m-2 d-flex justify-content-between rounded stats">
                             <div class="p-1 d-flex flex-column align-items-center">
                                 <span class="articles">Lidos</span>
