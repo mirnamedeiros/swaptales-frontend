@@ -17,35 +17,61 @@
                 email: "",
                 telephone: "",
                 username: "",
-                password: ""
-              }
+                password: "",
+                urlImg: "",
+              },
+              file: null
           }
       },
 
       methods: {
+
+          onFileChange(event) {
+            this.file = event.target.files[0];
+          },
+
           addUser(){
 
-              alert(JSON.stringify(this.user))
+            const formData = new FormData();
+            formData.append('file', this.file);
 
-              fetch('http://localhost:8080/swaptales/api/users', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(this.user),
+            fetch('http://localhost:8080/swaptales/api/images', {
+              method: 'POST',
+              body: formData,
+            }).then(response => {
+                if (!response.ok) {
+                  throw new Error(`Erro no upload: ${response.statusText}`);
+                }
+                return response.text();
               })
-                .then(response => {
-                  if (response.status === 200) {
-                    console.log('usuario criado com sucesso');
-                    this.$router.push('/');
-                  } else {
-                    console.error('Erro ao cadastrar usuario:', response.statusText);
-                  }
-                })
-                .catch(error => {
-                  console.error('Erro ao fazer a solicitação:', error);
-                });
+              .then(data => {
+                if(data){
+                  console.log(data);
+                  this.user.urlImg = data;
 
+                  fetch('http://localhost:8080/swaptales/api/users', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(this.user),
+                  })
+                    .then(res => {
+                      if (res.status === 200) {
+                        console.log('Usuario criado com sucesso');
+                        this.$router.push('/');
+                      } else {
+                        console.error('Erro ao cadastrar usuario:', res.statusText);
+                      }
+                    })
+                    .catch(error => {
+                      console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                    });
+                }
+              })
+              .catch(error => {
+                console.error('Erro ao fazer a solicitação para a api de imagens:', error);
+              })
           }
       },
           
@@ -91,7 +117,7 @@
 
                     <!-- TODO: change button and placeholder text -->
                     <div class="col-md-12 form-group mb-3">
-                      <input id="file" type="file" accept="image/*"> 
+                      <input id="file" type="file" accept="image/*" @change="onFileChange"> 
                     </div>
 
                 
