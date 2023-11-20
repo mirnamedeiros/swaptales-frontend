@@ -119,49 +119,43 @@ export default{
         }
     }
 
-    // .table-wrap{
-	// @include media-breakpoint-down(xl){
-	// 	overflow-x: scroll;
-	// }
-// } 
-
-.table{
-	width: 100%;
-	border-collapse:separate;
-    border-spacing: 0 10px;
-    border-top: 3px solid $secondary-color;
-	thead{
-        th{
-            border: none;
-			padding: 30px;
-			font-size: 14px;
-		}
-		tr{
-            text-align: center;
-            color: #000;
-		}
-	}
-	tbody{
-		tr{
-            text-align: center;
-			margin-bottom: 10px;
-		}
-		th,td{
-			border: none;
-			padding:30px;
-			font-size: 14px;
-			background: #fff;
-		}
-		td{
-			.close{
-				span{
-					font-size: 12px;
-					color: red;
-				}
-			}
-		}
-	}
-}
+    .table{
+        width: 100%;
+        border-collapse:separate;
+        border-spacing: 0 10px;
+        border-top: 3px solid $secondary-color;
+        thead{
+            th{
+                border: none;
+                padding: 30px;
+                font-size: 14px;
+            }
+            tr{
+                text-align: center;
+                color: #000;
+            }
+        }
+        tbody{
+            tr{
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            th,td{
+                border: none;
+                padding:30px;
+                font-size: 14px;
+                background: #fff;
+            }
+            td{
+                .close{
+                    span{
+                        font-size: 12px;
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
 
 
 </style>
