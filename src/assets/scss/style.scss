@@ -160,17 +160,13 @@ button.siteLink {
   transition: all 300ms linear;
 }
 
-.blackLink:active {
-  color: #000;
-  background:#fff
-}
 #siteBrand {
   font-family: 'Barlow', sans-serif;
   letter-spacing : -1px;
   font-size:32px;
-  color:$dark-color;
   line-height : 1em;
 }
+
 #menuDrawer {
   background:#fff;
   position:absolute;

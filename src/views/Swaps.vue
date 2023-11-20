@@ -70,7 +70,10 @@ import Footer from '../components/Footer.vue'
 <template>
     <main>
         <NavBar/>
-        <div class="container d-flex flex-column justify-content-center align-items-center">
+        <div class="container d-flex flex-column align-items-center mt-5">
+            <div>
+                <h2>Trocas de Livros</h2>
+            </div>
             <BookSwap v-for="swap in swaps"
             :key="swap.id"
             :imagePath1="swap.imagePath1"
