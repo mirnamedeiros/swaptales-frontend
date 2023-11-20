@@ -23,12 +23,15 @@
             </div>
             <a href="#" class="flex2 text-start d-none d-md-block">
                 <button class="whiteLink siteLink">
-                    MEUS LIVROS
+                    MEU HISTÓRICO
                 </button>
             </a>
-            <button id="siteBrand" class="whiteLink siteLink">
-                    <a href="/books" class="col-2 align-self-end">SWAPTALES</a>
+
+            <a href="/books" class="col-2 align-self-end">
+                <button id="siteBrand" class="whiteLink siteLink">
+                    SWAPTALES
                 </button>
+            </a>
         
             <div class="flex2 text-end d-block d-md-none">
                 <button class="whiteLink siteLink"><i class="fas fa-search"></i></button>

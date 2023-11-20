@@ -11,14 +11,13 @@ $white: #fff;
     background: $white;
     border: 4px solid $dark-color;
     border-radius: 0;
-    box-shadow: 4px 4px $secondary-color;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     padding: 20px;
     cursor: pointer;
-    transition: transform 0.3s;
+    // transition: transform 0.3s;
     margin: 1em 0;
 
     .exchange-date {
@@ -26,7 +25,6 @@ $white: #fff;
         font-size: 20px;
         text-align: center;
         color: $dark-color;
-        border-bottom: 3px solid $secondary-color;
     }
 
     .swap-info {
@@ -70,15 +68,52 @@ $white: #fff;
             object-fit: cover;
             border: 3px solid $dark-color;
             box-shadow: 4px 4px $secondary-color;
-
-            &:hover {
-                transition: transform 0.3s;
-                transform: translateY(-5px);
-            }
         }
     }
+}
 
-    &:hover {
-        transform: translateY(-5px);
+.card {
+    position: relative;
+    background: none;
+    border: none;
+
+    .slide1 {
+        position: relative;
+        z-index: 1;
+        transition: .4s;
+        transform: translateX(0);
     }
+
+    .slide2 {
+        position: relative;
+        top: -250px;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        right: -5px;
+        height: 240px;
+        transition: .6s;
+        background-color: $secondary-color;
+        transform: translateX(0);
+
+        .content {
+            width: 100%;
+        }
+    }
+}
+
+.card:hover .slide.slide1 {
+    transform: translateX(-200px);
+}
+
+.card:hover .slide.slide2 {
+    transform: translateX(230px);
+}
+
+.separate {
+    width: 100%;
+    height: 2px;
+    border: none;
+    background-color: $secondary-color;
+    margin: 1em 0;
 }

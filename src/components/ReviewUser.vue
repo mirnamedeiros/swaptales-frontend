@@ -7,8 +7,8 @@
                     <div class="row">
                         <div class="col-sm-12 col-lg-6">
                             <div class="card-body">
-                                <h3>Nome do Usuário</h3>
-                                <h5 class="text-muted">42 seguidores</h5>
+                                <h5>Nome do Usuário</h5>
+                                <h6 class="text-muted">42 seguidores</h6>
                                 <div id="buttons" class="d-flex justify-content-start" style="margin-top: 2rem;">
                                     <a class="btn btn-sm btn-primary" style="margin-right: 1rem;">Fazer comentário</a>
                                     <a class="btn btn-sm btn-primary">Todas as Avaliações</a>
@@ -22,10 +22,10 @@
                                         <a href="">
                                             <div class="d-flex align-items-center mb-2 w-100 justify-content-around">
                                                 <i class="fa-regular fa-face-smile fa-xl"></i>
-                                                <h5 mb-0>47%</h5>
+                                                <span mb-0>47%</span>
                                             </div>
                                             <div class="ml-2">
-                                                <h5>(9 comentários)</h5>
+                                                <span>(9 comentários)</span>
                                             </div>
                                         </a>
                                     </li>
@@ -33,11 +33,11 @@
                                         <a href="">
                                             <div class="d-flex align-items-center mb-2 w-100 justify-content-around">
                                                 <i class="fa-regular fa-face-meh fa-xl"></i>
-                                                <h5>20%</h5>
+                                                <span>20%</span>
                                             </div>
                                             <div class="ml-2">
                                                 <a href="">
-                                                    <h5>(4 comentários)</h5>
+                                                    <span>(4 comentários)</span>
                                                 </a>
                                             </div>
                                         </a>
@@ -46,10 +46,10 @@
                                         <a href="">
                                             <div class="d-flex align-items-center mb-2 w-100 justify-content-around">
                                                 <i class="fa-regular fa-face-frown fa-xl"></i>
-                                                <h5>33%</h5>
+                                                <span>33%</span>
                                             </div>
                                             <div class="ml-2">
-                                                <h5>(7 comentários)</h5>
+                                                <span>(7 comentários)</span>
                                             </div>
                                         </a>
                                     </li>
@@ -104,6 +104,10 @@
                 text-decoration: none;
                 color: inherit;
                 padding-right: 1.5em;
+
+                span {
+                    font-size: 16px;
+                }
             }
         }
 
