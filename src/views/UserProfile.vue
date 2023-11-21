@@ -103,10 +103,10 @@ export default {
                             </div>
                         </div>
                         <div class="button mt-2 d-flex flex-row align-items-center">
-                            <button class="btn btn-sm btn-primary w-100 mx-2">
-                                <router-link to="/editUser" style="text-decoration: none;">Editar</router-link>
-                            </button>
-                            <button class="btn btn-sm btn-primary w-100 ml-2 mx-2">Seguir</button>
+                                <button class="btn btn-sm btn-primary w-100 mx-2">
+                                    <router-link to="/editUser" style="text-decoration: none;">Editar</router-link>
+                                </button>
+                                <button class="btn btn-sm btn-primary w-100 ml-2 mx-2">Seguir</button>
                         </div>
                     </div>
                 </div>
@@ -162,31 +162,36 @@ export default {
                         </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary col-1 align-self-center mb-3">
-                        <i class="fa-solid fa-plus pr-2"></i>
-                        <a href="/add" class="p-2 text-decoration-none">ADICIONAR LIVRO</a>
-                    </button>
+                    <a href="/add" class="align-self-center mb-3">
+                        <button type="button" class="btn btn-primary">
+                            <i class="fa-solid fa-plus pr-2"></i>
+                            <span class="p-2 text-decoration-none">ADICIONAR LIVRO</span>
+                        </button>
+                    </a>
             </div>
             <div class="card-profile py-4 px-4">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <h5 class="mb-0">Reviews</h5>
-                    <a href="#" class="btn btn-link text-muted">Mostrar todos</a>
+                    <a href="#" class="btn btn-link text-muted">Mostrar todas</a>
                 </div>
-                <table class="table">
+                <table class="styled-table">
                     <thead>
                         <tr>
-                            <th scope="col">Livro</th>
-                            <th scope="col">Autor</th>
+                            <th>Livro</th>
+                            <th>Autor</th>
+                            <th>Ver mais</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="table-active">
-                            <th scope="row">A Tormenta de Espadas</th>
+                        <tr>
+                            <td>A Tormenta de Espadas</td>
                             <td>Oscar Wilde</td>
+                            <td><i class="fa-solid fa-arrow-up-right-from-square fa-lg"></i></td>
                         </tr>
                         <tr>
-                            <th scope="row">O Festim dos Corvos</th>
+                            <td>O Festim dos Corvos</td>
                             <td>George R. R. Martin</td>
+                            <td><i class="fa-solid fa-arrow-up-right-from-square fa-lg"></i></td>
                         </tr>
                     </tbody>
                 </table>
@@ -197,27 +202,10 @@ export default {
 </template>
 
 
-<style lang="scss">
-    .whiteLink{
-        text-decoration: none;
-        color: #000;
-    }
+<style lang="scss" scoped>
 
-    .card-profile {
-        width: 700px;
-        border: none;
-        border-radius: 10px;
-        background-color: #fff;
-        border: 4px solid #000;
-        box-shadow: 8px 8px 0 #a1aab9;
-        display: flex;
-        flex-direction: column;
-        margin: 10px;
-        border-radius: 0;
-    }
-
-    .separate {
-        border-top: 3px solid #000;
+    table {
+        box-shadow: none!important;;
     }
 
     .stats {
