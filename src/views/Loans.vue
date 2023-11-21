@@ -20,9 +20,12 @@ import Footer from '../components/Footer.vue'
 <template>
     <main>
         <NavBar/>
-        <div class="container">
-            <div class="card-profile py-4 px-4">
-                <table class="table">
+        <div class="container mt-5">
+            <div class="text-center">
+                <div>
+                    <h2 class="mb-5">Empréstimos de Livros</h2>
+                </div>
+                <table class="styled-table">
                     <thead>
                         <tr>
                             <th scope="col">Usuário</th>
@@ -45,6 +48,12 @@ import Footer from '../components/Footer.vue'
                             <td>10/10/2023</td>
                             <td>27/11/2023</td>
                         </tr>
+                        <tr>
+                            <td>Beatrice</td>
+                            <td>O mistério do 5 estrelas</td>
+                            <td>10/10/2023</td>
+                            <td>27/11/2023</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -53,56 +62,5 @@ import Footer from '../components/Footer.vue'
     </main>
 </template>
 
-<style lang="scss">
-
-    $light-color: #e7e8ee;
-    $primary-color: #5a6794;
-    $secondary-color: #8794c0;
-    $emphasis-color: #d8cdb0;
-    $dark-color: #1c2135;
-
-    .table{
-        border-top: none!important;
-        width: 100%;
-        border-collapse:separate;
-        border-spacing: 0 10px;
-        border-top: 3px solid $secondary-color;
-        thead{
-            th{
-                border: none;
-                padding: 30px;
-                font-size: 14px;
-            }
-            tr{
-                text-align: center;
-                color: #000;
-            }
-        }
-        tbody{
-            tr{
-                text-align: center;
-                margin-bottom: 10px;
-                border-bottom: 1px solid $dark-color;
-                &:nth-child(even) {
-                    background-color: $secondary-color;
-                }
-            }
-            th,td{
-                border: none;
-                padding:30px;
-                font-size: 14px;
-                background: #fff;
-            }
-            td{
-                .close{
-                    span{
-                        font-size: 12px;
-                        color: red;
-                    }
-                }
-            }
-        }
-    }
-</style>
 
 

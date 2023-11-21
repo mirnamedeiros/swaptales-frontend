@@ -16,6 +16,7 @@ $primary-color: #5a6794;
 $secondary-color: #8794c0;
 $emphasis-color: #d8cdb0;
 $dark-color: #1c2135;
+$white: #fff;
 
 body {
   font-family: 'Barlow', sans-serif;
@@ -89,7 +90,7 @@ body {
   touch-action: manipulation;
   width: max-content;
 
-  a, i {
+  a, i{
     color: $dark-color;
   }
 
@@ -210,4 +211,71 @@ a.nav-menu-item{
 select.noStyle {
   border:none;
   outline:none
+}
+
+table {
+  background-color: $white;
+  text-align: center;
+  width: 100%;
+  border: 4px solid $dark-color;
+  box-shadow: 8px 8px 0 $secondary-color;
+}
+
+.styled-table {
+  thead tr {
+      background-color: $primary-color;
+      color: $white;
+      text-align: left;
+  }
+  th {
+      text-align: center;
+      padding: 24px 30px;
+  }
+  td {
+      text-align: center;
+      padding: 24px 30px;
+  }
+  tbody {
+      tr {
+          border-bottom: 1px solid $white;
+          &:nth-of-type(even) {
+              background-color: $light-color;
+          }
+      }
+      tr .active-row {
+          font-weight: bold;
+          color: $primary-color;
+      }
+  }
+}
+
+.card-profile {
+  width: 700px;
+  border: none;
+  border-radius: 10px;
+  background-color: #fff;
+  border: 4px solid #000;
+  box-shadow: 8px 8px 0 #a1aab9;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  border-radius: 0;
+
+  h5 {
+    color: $primary-color;
+  }
+    
+  a {
+      text-decoration: none;
+      color: #000;
+      color: $secondary-color!important;
+      i {
+          color: $secondary-color;
+      }
+  }
+}
+
+.separate {
+  border-top: 2px solid $secondary-color;
+  width: 100%;
 }
