@@ -17,20 +17,23 @@ export default {
                 telephone: "",
                 username: "",
                 urlImg: "",
-                
+                countFollowers: "",
             },
+            countBorrowed: 0,
+            countExchanges: 0,
         }
     },
 
     mounted() {
-        this.findUser();
+        let id = localStorage.getItem('currentUser');
+        this.findUser(id);
+        this.findBorrowed(id);
+        this.findExchanges(id);
       },
 
     methods: {
-
-        findUser(){
-            let id = localStorage.getItem('currentUser');
-
+        findUser(id){
+            
             fetch(`http://localhost:8080/swaptales/api/users/${id}`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -52,7 +55,7 @@ export default {
                 })
                 .catch(error => {
                     console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
-                })
+                });
         },
 
         setUser(data){
@@ -62,6 +65,57 @@ export default {
             this.user.telephone = data.telephone;
             this.user.username = data.username;
             this.user.urlImg = data.urlImg;
+            this.user.countFollowers = data.followers.length;
+        },
+
+        findBorrowed(id){
+            fetch(`http://localhost:8080/swaptales/api/transactions/loan/all-borrowed/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao recuperar o usuario: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    if(data){
+                        this.countBorrowed = JSON.parse(data).length;
+                    }else{
+                        console.log("Usuario não encontrado");
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                });
+        },
+
+        findExchanges(id){
+            fetch(`http://localhost:8080/swaptales/api/transactions/exchange/user/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao recuperar o usuario: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    if(data){
+                        this.countExchanges = JSON.parse(data).length;
+                    }else{
+                        console.log("Usuario não encontrado");
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                });
         }
     },
 }
@@ -80,10 +134,10 @@ export default {
                     <div class="ml-3 w-100">
                         <h4 class=" mx-2 mb-0 mt-0">{{user.name}}</h4>
                         <div class="p-2 m-2 d-flex justify-content-between rounded stats">
-                            <div class="p-1 d-flex flex-column align-items-center">
+                            <!--div class="p-1 d-flex flex-column align-items-center">
                                 <span class="articles">Lidos</span>
                                 <span class="number1">25</span>
-                            </div>
+                            </div-->
                             <div class="p-1 d-flex flex-column align-items-center">
                                 <span class="articles">Vendidos</span>
                                 <span class="number1">12</span>
@@ -91,15 +145,15 @@ export default {
                             <div class="p-1 d-flex flex-column align-items-center">
 
                                 <span class="followers">Trocados</span>
-                                <span class="number2">2</span>
+                                <span class="number2">{{ countExchanges }}</span>
                             </div>
                             <div class="p-1 d-flex flex-column align-items-center">
                                 <span class="rating">Emprestados</span>
-                                <span class="number3">9</span>
+                                <span class="number3">{{ countBorrowed }}</span>
                             </div>
                             <div class="p-1 d-flex flex-column align-items-center">
                                 <span class="articles">Seguidores</span>
-                                <span class="number1">11</span>
+                                <span class="number1">{{ user.countFollowers }}</span>
                             </div>
                         </div>
                         <div class="button mt-2 d-flex flex-row align-items-center">
