@@ -8,7 +8,11 @@ export default {
         user1Image: String,
         user2Name: String,
         user2Image: String,
-        exchangeDate: String,
+        exchangeDate: Array,
+        titleBook1: String,
+        authorBook1: String,
+        titleBook2: String,
+        authorBook2: String
     },
 };
 </script>
@@ -18,7 +22,7 @@ export default {
         <div class="slide slide1">
             <div class="content">
                 <div class="book-exchange-card">
-                <div class="exchange-date">Data: {{ exchangeDate }}</div>
+                <div class="exchange-date">Data: {{ (exchangeDate) ? exchangeDate[2] + "/" + exchangeDate[1] + "/" + exchangeDate[0] : "-" }}</div>
                 <div class="separate"></div>
                 <div class="swap-info">
                     <div class="user-info">

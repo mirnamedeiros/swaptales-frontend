@@ -17,51 +17,39 @@ import Footer from '../components/Footer.vue'
         },
         data() {
             return {
-                swaps: [
-                    {id:1,
-                    imagePath1: "src/assets/images/a-feast-of-crows.jpg",
-                    imagePath2: "src/assets/images/a-clash-of-kings.jpg",
-                    user1Name: "Alex Morisson",
-                    user1Image: "src/assets/images/profile-1.jpg",
-                    user2Name: "Aemma Silva",
-                    user2Image: "src/assets/images/profile-2.jpg",
-                    exchangeDate: "13/03/2023",},
-                    {id:2,
-                    imagePath1: "src/assets/images/a-dance-with-dragons.jpg",
-                    imagePath2: "src/assets/images/a-storm-swords.jpeg",
-                    user1Name: "Alex Morisson",
-                    user1Image: "src/assets/images/profile-1.jpg",
-                    user2Name: "James Alecsander",
-                    user2Image: "src/assets/images/profile-3.jpg",
-                    exchangeDate: "13/03/2023",},
-                ]
+                swaps: []
             }
         },
-//
-        beforeMount(){
-            this.getbooks()
+        mounted(){
+            let id = localStorage.getItem('currentUser');
+            this.findExchanges(id);
         },
-
         methods: {
-            getbooks(){
-                fetch('http://localhost:8080/swaptales/api/books', {
-                    method: 'GET'
+
+            findExchanges(id){
+            fetch(`http://localhost:8080/swaptales/api/transactions/exchange/user/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao recuperar o usuario: ${response.statusText}`);
+                    }
+                    return response.text();
                 })
-                .then(response => response.json())
                 .then(data => {
-                    this.books = data
-                    console.log(data)
+                    if(data){
+                        this.swaps = JSON.parse(data);
+                    }else{
+                        console.log("Usuario não encontrado");
+                    }
                 })
-            },
-            deletebook(id){
-                fetch(`http://localhost:8080/swaptales/api/books/${id}`, {
-                    method: 'DELETE'
-                })
-                .then(data => {
-                    console.log(data)
-                    this.getbooks()
-                })
-            }
+                .catch(error => {
+                    console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                });
+        },
         },
     }
 
@@ -76,13 +64,17 @@ import Footer from '../components/Footer.vue'
             </div>
             <BookSwap v-for="swap in swaps"
             :key="swap.id"
-            :imagePath1="swap.imagePath1"
-            :imagePath2="swap.imagePath2"
-            :user1Name="swap.user1Name"
-            :user1Image="swap.user1Image"
-            :user2Name="swap.user2Name"
-            :user2Image="swap.user2Image"
-            :exchange-date="swap.exchangeDate"/>
+            :imagePath1="swap.book.urlImg"
+            :imagePath2="swap.bookExchange.urlImg"
+            :user1Name="swap.book.ownerUser.name"
+            :user1Image="swap.book.ownerUser.urlImg"
+            :user2Name="swap.user.name"
+            :user2Image="swap.user.urlImg"
+            :exchange-date="swap.dateTransaction"
+            :titleBook1="swap.book.title"
+            :authorBook1="swap.book.author"
+            :titleBook2="swap.bookExchange.title"
+            :authorBook2="swap.bookExchange.author"/>
         </div>
         <Footer/>
     </main>
