@@ -51,15 +51,39 @@
 
       data() {
           return {
-              user : {
-                name: "",
-                telephone: "",
-                id: localStorage.getItem('currentUser')
-              }
+              user : "",
+              id: "",
           }
       },
-
+      mounted(){
+        this.id = localStorage.getItem('currentUser');
+        this.getUser(this.id);
+      },
       methods: {
+          getUser(id){
+            fetch(`http://localhost:8080/swaptales/api/users/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao recuperar o usuario: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    if(data){
+                        this.user = JSON.parse(data);
+                    }else{
+                        console.log("Usuario não encontrado");
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                });
+          },
           editUser(){
 
               alert(JSON.stringify(this.user))
@@ -74,7 +98,7 @@
                 .then(response => {
                   if (response.status === 200) {
                     console.log('usuario editado com sucesso');
-                    this.$router.push('/profile');
+                    this.$router.push('/profile/' + this.id);
                   } else {
                     console.error('Erro ao editar usuario:', response.statusText);
                   }

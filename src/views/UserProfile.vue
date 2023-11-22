@@ -19,14 +19,28 @@ export default {
                 urlImg: "",
                 countFollowers: "",
             },
+            books: [{
+                urlImg: "",
+                title: "",
+            }],
             countBorrowed: 0,
             countExchanges: 0,
             countSold: 0,
             idCurrentUser: "",
-            id: ""
+            id: "",
+            activeGroupIndex: 0,
+            itemsPerGroup: 3
         }
     },
-
+    computed: {
+        bookGroups() {
+        const groups = [];
+        for (let i = 0; i < this.books.length; i += this.itemsPerGroup) {
+            groups.push(this.books.slice(i, i + this.itemsPerGroup));
+        }
+        return groups;
+        }
+    },
     mounted() {
         this.id = this.$route.params.id;
         this.idCurrentUser = localStorage.getItem('currentUser');
@@ -34,6 +48,7 @@ export default {
         this.findBorrowed(this.id);
         this.findExchanges(this.id);
         this.findSold(this.id);
+        this.findBooks(this.id);
       },
 
     methods: {
@@ -146,6 +161,40 @@ export default {
                 .catch(error => {
                     console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
                 });
+        },
+        findBooks(id){
+            fetch(`http://localhost:8080/swaptales/api/books/user/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao recuperar o usuario: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    if(data){
+                        this.books = JSON.parse(data);
+                        
+                    }else{
+                        console.log("Usuario não encontrado");
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                });
+        },
+        redirectEditUser(){
+            this.$router.push('/editUser/');
+        },
+        nextSlide() {
+            this.activeGroupIndex = (this.activeGroupIndex + 1) % this.bookGroups.length;
+        },
+        prevSlide() {
+            this.activeGroupIndex = (this.activeGroupIndex - 1 + this.bookGroups.length) % this.bookGroups.length;
         }
     },
 }
@@ -187,8 +236,8 @@ export default {
                             </div>
                         </div>
                         <div class="button mt-2 d-flex flex-row align-items-center">
-                                <button class="btn btn-sm btn-primary w-100 mx-2">
-                                    <router-link to="/editUser" style="text-decoration: none;">Editar</router-link>
+                                <button v-if="id==idCurrentUser" class="btn btn-sm btn-primary w-100 mx-2" @click="redirectEditUser">
+                                    Editar
                                 </button>
                                 <button v-if="id!=idCurrentUser" class="btn btn-sm btn-primary w-100 ml-2 mx-2">Seguir</button>
                         </div>
@@ -198,7 +247,7 @@ export default {
                     <div class="my-5 text-center">
                         <div class="row d-flex align-items-center">
                             <div class="col-1 d-flex align-items-center justify-content-center">
-                                <a href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                <a href="#carouselExampleIndicators" role="button" data-slide="prev" @click.prevent="prevSlide">
                                     <div class="carousel-nav-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink">
                                         <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z"/>
@@ -210,24 +259,11 @@ export default {
                                 <!--Start carousel-->
                                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
-                                    <div class="carousel-item active">
+                                    <div v-for="(group, index) in bookGroups" :key="index" class="carousel-item" :class="{ active: index === activeGroupIndex }">
                                         <div class="row">
-                                            <div style="background-image:url('src/assets/images/a-storm-swords.jpeg');" class="col-12 col-md d-flex align-items-center justify-content-center">
-                                            </div>
-                                            <div style="background-image:url('src/assets/images/a-feast-of-crows.jpg');" class="col-12 col-md d-flex align-items-center justify-content-center">
-                                            </div>
-                                            <div style="background-image:url('src/assets/images/a-dance-with-dragons.jpg');" class="col-12 col-md d-flex align-items-center justify-content-center">
-                                            </div>
+                                        <div v-for="(book, bookIndex) in group" :key="bookIndex" class="col-4 d-flex align-items-center justify-content-center">
+                                            <img :src="book.urlImg" alt="Book Cover" width="155">
                                         </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="row">
-                                            <div style="background-image:url('src/assets/images/a-storm-swords.jpeg');" class="col-12 col-md d-flex align-items-center justify-content-center">
-                                            </div>
-                                            <div style="background-image:url('src/assets/images/a-feast-of-crows.jpg');" class="col-12 col-md d-flex align-items-center justify-content-center">
-                                            </div>
-                                            <div style="background-image:url('src/assets/images/a-dance-with-dragons.jpg');" class="col-12 col-md d-flex align-items-center justify-content-center">
-                                            </div>
                                         </div>
                                     </div>
                                     </div>
@@ -235,7 +271,7 @@ export default {
                                 <!--End carousel-->
                             </div>
                             <div class="col-1 d-flex align-items-center justify-content-center">
-                                <a  href="#carouselExampleIndicators" data-slide="next">
+                                <a  href="#carouselExampleIndicators" data-slide="next" @click.prevent="nextSlide">
                                     <div class="carousel-nav-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink">
                                         <path d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z"/>
