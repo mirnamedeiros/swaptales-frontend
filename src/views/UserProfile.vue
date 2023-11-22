@@ -29,7 +29,8 @@ export default {
             idCurrentUser: "",
             id: "",
             activeGroupIndex: 0,
-            itemsPerGroup: 3
+            itemsPerGroup: 3,
+            reviews: []
         }
     },
     computed: {
@@ -49,6 +50,7 @@ export default {
         this.findExchanges(this.id);
         this.findSold(this.id);
         this.findBooks(this.id);
+        this.getListReviewsByUser(this.id)
       },
 
     methods: {
@@ -195,7 +197,19 @@ export default {
         },
         prevSlide() {
             this.activeGroupIndex = (this.activeGroupIndex - 1 + this.bookGroups.length) % this.bookGroups.length;
-        }
+        },
+
+        getListReviewsByUser(id){
+
+            fetch(`http://localhost:8080/swaptales/api/reviews/user/${id}`, {
+                method: 'GET'
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        this.reviews = data;
+                        console.log(this.reviews);
+                })
+        },
     },
 }
 </script>
@@ -294,7 +308,7 @@ export default {
                     <h5 class="mb-0">Reviews</h5>
                     <a href="#" class="btn btn-link text-muted">Mostrar todas</a>
                 </div>
-                <table class="styled-table">
+                <table class="styled-table" >
                     <thead>
                         <tr>
                             <th>Livro</th>
@@ -303,14 +317,9 @@ export default {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>A Tormenta de Espadas</td>
-                            <td>Oscar Wilde</td>
-                            <td><i class="fa-solid fa-arrow-up-right-from-square fa-lg"></i></td>
-                        </tr>
-                        <tr>
-                            <td>O Festim dos Corvos</td>
-                            <td>George R. R. Martin</td>
+                        <tr v-for="(review, index) in reviews" :key="index">
+                            <td>{{ review.book.title}}</td>
+                            <td>{{ review.book.author}}</td>
                             <td><i class="fa-solid fa-arrow-up-right-from-square fa-lg"></i></td>
                         </tr>
                     </tbody>
