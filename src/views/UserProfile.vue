@@ -21,14 +21,17 @@ export default {
             },
             countBorrowed: 0,
             countExchanges: 0,
+            idCurrentUser: "",
+            id: ""
         }
     },
 
     mounted() {
-        let id = localStorage.getItem('currentUser');
-        this.findUser(id);
-        this.findBorrowed(id);
-        this.findExchanges(id);
+        this.id = this.$route.params.id;
+        this.idCurrentUser = localStorage.getItem('currentUser');
+        this.findUser(this.id);
+        this.findBorrowed(this.id);
+        this.findExchanges(this.id);
       },
 
     methods: {
@@ -160,7 +163,7 @@ export default {
                                 <button class="btn btn-sm btn-primary w-100 mx-2">
                                     <router-link to="/editUser" style="text-decoration: none;">Editar</router-link>
                                 </button>
-                                <button class="btn btn-sm btn-primary w-100 ml-2 mx-2">Seguir</button>
+                                <button v-if="id!=idCurrentUser" class="btn btn-sm btn-primary w-100 ml-2 mx-2">Seguir</button>
                         </div>
                     </div>
                 </div>

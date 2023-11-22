@@ -55,13 +55,14 @@ import Footer from '../components/Footer.vue'
         <NavBar/>
         <div class="container d-flex flex-wrap justify-content-center">
             <Book v-for="book in books"
-            :key="book.id"
-            :imagePath="book.urlImg"
-            :author="book.author"
-            :title="book.title"
-            :text="book.text"
-            :goal="book.goal"
-            :link="book.link"/>
+                :id="book.id"
+                :imagePath="book.urlImg"
+                :author="book.author"
+                :title="book.title"
+                :text="book.text"
+                :type="book.availabilityStatus"
+                :link="book.link"
+                :idUser="book.ownerUser.id"/>
         </div>
         <Footer/>
     </main>

@@ -38,7 +38,7 @@ const router = createRouter({
       component: UpdateBook
     },
     {
-      path: '/profile',
+      path: '/profile/:id',
       name: 'profile',
       component: UserProfile
     },
@@ -53,7 +53,7 @@ const router = createRouter({
       component: EditUser
     },
     {
-      path: '/book-detail',
+      path: '/book-detail/:id',
       name: 'book-detail',
       component: BookDetail
     },

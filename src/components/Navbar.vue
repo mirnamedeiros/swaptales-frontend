@@ -2,7 +2,12 @@
     export default {
         name: 'NavBar',
         components: {},
-        data() {return {}},
+        data() {return {
+            id: "",
+        }},
+        mounted() {
+            this.id = localStorage.getItem('currentUser');
+        },
         methods: {
             menuToggle: function() {
                 var menuHolder = document.getElementById('menuHolder')
@@ -41,7 +46,7 @@
                     DESTAQUES
                 </button>
             </a>
-            <a href="/profile" class="flex2 text-end d-none d-md-block">
+            <a :href="'/profile/' + id" class="flex2 text-end d-none d-md-block">
                 <button class="whiteLink siteLink">
                     PERFIL
                 </button>
