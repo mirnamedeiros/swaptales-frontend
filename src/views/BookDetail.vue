@@ -8,6 +8,53 @@ import Footer from '../components/Footer.vue'
             NavBar,
             Footer
         },
+		data() {
+			return {
+				book : {
+					title: "",
+				},
+				id: null,
+			}
+    	},
+		mounted(){
+			this.id = this.$route.params.id;
+			this.findBook(this.id);
+		},
+		methods: {
+			findBook(id){
+				fetch(`http://localhost:8080/swaptales/api/books/${id}`, {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					method: 'GET',
+				})
+					.then(response => {
+						if (!response.ok) {
+							throw new Error(`Erro ao recuperar o usuario: ${response.statusText}`);
+						}
+						return response.text();
+					})
+					.then(data => {
+						if(data){
+							this.setBook(JSON.parse(data));
+						}else{
+							console.log("Usuario não encontrado");
+						}
+					})
+					.catch(error => {
+						console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+					});
+        	},
+			setBook(data){
+				this.book.title = data.title;
+				this.book.price = (data.price) ? data.price : 0;
+				this.book.countReview = (data.reviews) ? data.reviews.length : 0;
+				this.book.idioma = (data.idioma)? data.idioma : '-';
+				this.book.author = data.author;
+				this.book.description = (data.description) ? data.description : '-';
+				this.book.urlImg = data.urlImg;
+			}
+		},
     }
 </script>
 
@@ -20,27 +67,25 @@ import Footer from '../components/Footer.vue'
 					<div class="preview col-md-5">
 						
 						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img src="src/assets/images/a-feast-of-crows.jpg" /></div>
+						  <div class="tab-pane active" id="pic-1"><img :src="book.urlImg" /></div>
 						</div>
 						
 					</div>
 					<div class="details col-md-7">
-						<h3 class="product-title">A Feast For Crows</h3>
+						<h3 class="product-title">{{ book.title }}</h3>
 						<div class="rating">
-							<span class="review-no">2 reviews</span>
+							<span class="review-no">{{ book.countReview }} reviews</span>
 						</div>
 						
-						<h4 class="price"><span>R$ 30,00</span></h4>
+						<h4 class="price"><span>R$ {{book.title}}</span></h4>
 						<h5 class="titles">Linguagem:
-							<span>inglês</span>
+							<span>{{ book.idioma }}</span>
 						</h5>
-						<h5 class="titles">Editora:
-							<span>bantam dell</span>
+						<h5 class="titles">Escritor(a):
+							<span>{{ book.author }}</span>
 						</h5>
 
-                        <p class="product-description">There are many variations of passages of 
-                            Lorem Ipsum available, but the majority have suffered alteration in 
-                            some form, by injected humour.</p>
+                        <p class="product-description">{{ book.description }}</p>
 
 						<div class="action">
 							<button class="btn btn-primary col-1 align-self-center" type="button" style="margin-right: 20px;">Comprar</button>
