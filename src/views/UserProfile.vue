@@ -21,6 +21,7 @@ export default {
             },
             countBorrowed: 0,
             countExchanges: 0,
+            countSold: 0,
             idCurrentUser: "",
             id: ""
         }
@@ -32,6 +33,7 @@ export default {
         this.findUser(this.id);
         this.findBorrowed(this.id);
         this.findExchanges(this.id);
+        this.findSold(this.id);
       },
 
     methods: {
@@ -119,6 +121,31 @@ export default {
                 .catch(error => {
                     console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
                 });
+        },
+
+        findSold(id){
+            fetch(`http://localhost:8080/swaptales/api/transactions/sale/all-sold/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao recuperar o usuario: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    if(data){
+                        this.countSold = JSON.parse(data).length;
+                    }else{
+                        console.log("Usuario não encontrado");
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                });
         }
     },
 }
@@ -143,7 +170,7 @@ export default {
                             </div-->
                             <div class="p-1 d-flex flex-column align-items-center">
                                 <span class="articles">Vendidos</span>
-                                <span class="number1">12</span>
+                                <span class="number1">{{ countSold }}</span>
                             </div>
                             <div class="p-1 d-flex flex-column align-items-center">
 
