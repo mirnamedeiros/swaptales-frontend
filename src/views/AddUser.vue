@@ -58,19 +58,19 @@
                   })
                     .then(res => {
                       if (res.status === 200) {
-                        console.log('Usuario criado com sucesso');
+                        alert('Usuario criado com sucesso');
                         this.$router.push('/');
                       } else {
-                        console.error('Erro ao cadastrar usuario:', res.statusText);
+                        alert('Erro ao cadastrar usuario:', res.statusText);
                       }
                     })
                     .catch(error => {
-                      console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                      alert('Erro ao fazer a solicitação para a api de usuarios:', error);
                     });
                 }
               })
               .catch(error => {
-                console.error('Erro ao fazer a solicitação para a api de imagens:', error);
+                alert('Erro ao fazer a solicitação para a api de imagens:', error);
               })
           }
       },

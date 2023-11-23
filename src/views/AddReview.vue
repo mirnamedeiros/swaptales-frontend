@@ -41,14 +41,14 @@
             })
                 .then(response => {
                 if (response.status === 201) {
-                    console.log('Livro adicionado com sucesso');
+                    alert('Livro adicionado com sucesso');
                     this.$router.push('/books');
                 } else {
-                    console.error('Erro ao adicionar review:', response.statusText);
+                    alert('Erro ao adicionar review:' + response.statusText);
                 }
                 })
                 .catch(error => {
-                console.error('Erro ao fazer a solicitação:', error);
+                    alert('Erro ao fazer a solicitação:' + error);
                 });
         },
         findBook(id){
@@ -68,11 +68,11 @@
 						if(data){
 							this.setBook(JSON.parse(data));
 						}else{
-							console.log("Usuario não encontrado");
+							alert("Usuario não encontrado");
 						}
 					})
 					.catch(error => {
-						console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+						alert('Erro ao fazer a solicitação para a api de usuarios:', error);
 					});
         	},
         setBook(data){

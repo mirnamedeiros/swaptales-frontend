@@ -139,19 +139,19 @@
                 })
                   .then(response => {
                     if (response.status === 200) {
-                      console.log('Livro adicionado com sucesso');
+                      alert('Livro adicionado com sucesso');
                       this.$router.push('/books');
                     } else {
-                      console.error('Erro ao adicionar livro:', response.statusText);
+                      alert('Erro ao adicionar livro: ' +  response.statusText);
                     }
                   })
                   .catch(error => {
-                    console.error('Erro ao fazer a solicitação:', error);
+                    alert('Erro ao fazer a solicitação: ' +  error);
                   });
               }
             })
             .catch(error => {
-              console.error('Erro ao fazer a solicitação para a api de imagens:', error);
+              alert('Erro ao fazer a solicitação para a api de imagens: ' + error);
             })
         }
       },

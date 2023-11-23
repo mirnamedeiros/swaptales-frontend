@@ -84,7 +84,6 @@ import vuex from 'vuex'
 					window.localStorage.clear();
 					window.localStorage.setItem("jwtToken", response.data.token);
 					window.localStorage.setItem("currentUser", response.data.user.id);
-					alert(JSON.stringify(response.data));
 					window.location.href = '/books';
 					alert('Logado com sucesso');
 				} else {
@@ -92,6 +91,7 @@ import vuex from 'vuex'
 				}
 			} catch (error) {
 				console.error("Erro ao fazer login:", error);
+				alert("Erro ao fazer login: " + error);
 			}
 		}
       }
