@@ -13,6 +13,7 @@ import Swaps from '../views/Swaps.vue'
 import BestBooks from '../views/BestBooks.vue'
 import Loans from '../views/Loans.vue'
 import Notification from '../views/Notification.vue'
+import AddReview from '../views/AddReview.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,6 +87,11 @@ const router = createRouter({
       path: '/notification',
       name: 'notification',
       component: Notification
+    },
+    {
+      path: '/add-review/:id',
+      name: 'add-review',
+      component: AddReview
     }
   ]
 })

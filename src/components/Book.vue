@@ -34,7 +34,7 @@
         <div class="card-title">{{ title }}</div>
         <div class="card-subtitle">{{ author }}</div>
         <div class="card-footer">
-            <a href="#" class="icons fa-regular fa-heart"></a>
+            <a :href="'/add-review/' + id" class="icons fa-regular fa-heart"></a>
             <a :href="'/profile/' + idUser" class="icons fa-regular fa-user"></a>
         </div>
     </div>

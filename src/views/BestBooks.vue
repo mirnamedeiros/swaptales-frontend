@@ -53,7 +53,6 @@ export default{
         <div class="card-profile py-4 px-4 d-flex justify-content-center w-100">
             <div class="d-flex align-items-center justify-content-between mb-3">
                 <h3 class="mb-0">Melhores Livros</h3>
-                <a href="#" class="text-muted"><i class="fa-solid fa-filter"></i> Filtrar</a>
             </div>
             <div class="podium mb-4 d-flex justify-content-around">
                 <BookPodium v-for="(book, index) in books.slice(0, 3)"

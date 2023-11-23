@@ -30,7 +30,12 @@ export default {
             id: "",
             activeGroupIndex: 0,
             itemsPerGroup: 3,
-            reviews: []
+            reviews: [ {
+                stars: '',
+                book: {
+                    title: ''
+                }
+            }]
         }
     },
     computed: {
@@ -198,17 +203,30 @@ export default {
         prevSlide() {
             this.activeGroupIndex = (this.activeGroupIndex - 1 + this.bookGroups.length) % this.bookGroups.length;
         },
-
         getListReviewsByUser(id){
-
             fetch(`http://localhost:8080/swaptales/api/reviews/user/${id}`, {
-                method: 'GET'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'GET',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao recuperar o usuario: ${response.statusText}`);
+                    }
+                    return response.text();
                 })
-                    .then(response => response.json())
-                    .then(data => {
-                        this.reviews = data;
-                        console.log(this.reviews);
+                .then(data => {
+                    if(data){
+                        this.reviews = JSON.parse(data);
+                        
+                    }else{
+                        console.log("Usuario não encontrado");
+                    }
                 })
+                .catch(error => {
+                    console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                });
         },
     },
 }
@@ -303,7 +321,7 @@ export default {
                         </button>
                     </a>
             </div>
-            <div class="card-profile py-4 px-4">
+            <div class="card-profile py-4 px-4" v-if="reviews.length > 0">
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <h5 class="mb-0">Reviews</h5>
                     <a href="#" class="btn btn-link text-muted">Mostrar todas</a>
@@ -312,15 +330,15 @@ export default {
                     <thead>
                         <tr>
                             <th>Livro</th>
-                            <th>Autor</th>
+                            <th>Estrelas</th>
                             <th>Ver mais</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(review, index) in reviews" :key="index">
+                        <tr v-for="(review, index) in reviews.slice(0, 3)" :key="index">
                             <td>{{ review.book.title}}</td>
-                            <td>{{ review.book.author}}</td>
-                            <td><i class="fa-solid fa-arrow-up-right-from-square fa-lg"></i></td>
+                            <td>{{ review.stars}}</td>
+                            <td><a href="#" class="icons fa-solid fa-arrow-up-right-from-square fa-lg "></a></td>
                         </tr>
                     </tbody>
                 </table>
