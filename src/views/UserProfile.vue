@@ -35,7 +35,10 @@ export default {
                 book: {
                     title: ''
                 }
-            }]
+            }],
+            userCurrent: {
+                id: null,
+            }
         }
     },
     computed: {
@@ -92,7 +95,7 @@ export default {
             this.user.telephone = data.telephone;
             this.user.username = data.username;
             this.user.urlImg = data.urlImg;
-            this.user.countFollowers = data.followers.length;
+            this.user.countFollowers = data.countFollowers;
         },
 
         findBorrowed(id){
@@ -228,6 +231,26 @@ export default {
                     console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
                 });
         },
+        followUser(){
+            this.userCurrent.id = this.idCurrentUser;
+
+            fetch(`http://localhost:8080/swaptales/api/users/follow-user/${this.id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'PUT',
+                body: JSON.stringify(this.userCurrent),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erro ao recuperar o usuario: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .catch(error => {
+                    console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                });
+        }
     },
 }
 </script>
@@ -271,7 +294,9 @@ export default {
                                 <button v-if="id==idCurrentUser" class="btn btn-sm btn-primary w-100 mx-2" @click="redirectEditUser">
                                     Editar
                                 </button>
-                                <button v-if="id!=idCurrentUser" class="btn btn-sm btn-primary w-100 ml-2 mx-2">Seguir</button>
+                                <button v-if="id!=idCurrentUser" class="btn btn-sm btn-primary w-100 ml-2 mx-2" @click="followUser()">
+                                    Seguir
+                                </button>
                         </div>
                     </div>
                 </div>

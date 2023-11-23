@@ -142,11 +142,11 @@
                 <label for="edition" class="form-label">Estrela</label>
                 <select class="form-select mb-3" aria-label=".form-select-lg example" v-model="review.stars">
                     <option value="0" selected >0 Estrela</option>
-                  <option value="1">1 Estrela</option>
-                  <option value="2">2 Estrela</option>
-                  <option value="3">3 Estrela</option>
-                  <option value="4">4 Estrela</option>
-                  <option value="5">5 Estrela</option>
+                    <option value="1">1 Estrela</option>
+                    <option value="2">2 Estrela</option>
+                    <option value="3">3 Estrela</option>
+                    <option value="4">4 Estrela</option>
+                    <option value="5">5 Estrela</option>
                 </select>
 
                 <div class="col-md-12 form-group">
