@@ -1,29 +1,34 @@
 <script>
 import NavBar from '../components/Navbar.vue'
-import LoanTable from '../components/BookSwap.vue'
+import BookSwap from '../components/BookSwap.vue'
 import Footer from '../components/Footer.vue'
 
     export default {
-        name: 'Loans',
+        name: 'Notification',
         components: {
             NavBar,
-            LoanTable,
+            BookSwap,
             Footer
+        },
+        head: {
+        script: [
+            { type: 'text/javascript', src: '../js/scripts.js', async: true, body: true}, // Insert in body
+        ],
         },
         data() {
             return {
-                borroweds: [],
-                loaneds: [],
+                exchanges: [],
+                loans: []
             }
         },
-        mounted() {
+        mounted(){
             let id = localStorage.getItem('currentUser');
-            this.findBorrowed(id);
-            this.findLoaned(id);
+            this.findExchanges(id);
+            this.findLoans(id);
         },
         methods: {
-            findBorrowed(id){
-                fetch(`http://localhost:8080/swaptales/api/transactions/loan/all-borrowed/${id}`, {
+            findExchanges(id){
+                fetch(`http://localhost:8080/swaptales/api/transactions/exchange/user-pendent/${id}`, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -37,7 +42,8 @@ import Footer from '../components/Footer.vue'
                     })
                     .then(data => {
                         if(data){
-                            this.borroweds = JSON.parse(data);
+                            this.exchanges = JSON.parse(data);
+                            console.log(this.exchanges);
                         }else{
                             console.log("Usuario não encontrado");
                         }
@@ -46,9 +52,28 @@ import Footer from '../components/Footer.vue'
                         console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
                     });
             },
+            acceptExchange(id){
 
-            findLoaned(id){
-                fetch(`http://localhost:8080/swaptales/api/transactions/loan/all-loaned/${id}`, {
+				fetch(`http://localhost:8080/swaptales/api/transactions/exchange/accept/${id}`, {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					method: 'PUT',
+				})
+					.then(response => {
+                    if (response.status === 200) {
+                      console.log('Pedido de troca realizado com sucesso');
+                      this.$router.push('/books');
+                    } else {
+                      console.error('Erro ao solicitar troca de um livro:', response.statusText);
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Erro ao fazer a solicitação:', error);
+                  });
+            },
+            findLoans(id){
+                fetch(`http://localhost:8080/swaptales/api/transactions/loan/user-pendent/${id}`, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -62,7 +87,7 @@ import Footer from '../components/Footer.vue'
                     })
                     .then(data => {
                         if(data){
-                            this.loaneds = JSON.parse(data);
+                            this.loans = JSON.parse(data);
                         }else{
                             console.log("Usuario não encontrado");
                         }
@@ -71,8 +96,9 @@ import Footer from '../components/Footer.vue'
                         console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
                     });
             },
-            finishLoan(id){
-                fetch(`http://localhost:8080/swaptales/api/transactions/loan/finish/${id}`, {
+            acceptLoan(id){
+
+				fetch(`http://localhost:8080/swaptales/api/transactions/loan/accept/${id}`, {
 					headers: {
 						'Content-Type': 'application/json',
 					},
@@ -90,87 +116,90 @@ import Footer from '../components/Footer.vue'
                     console.error('Erro ao fazer a solicitação:', error);
                   });
             }
-        }
+        },
     }
-
-    
 
 </script>
 
 <template>
     <main>
         <NavBar/>
-        <div class="container mt-5">
-            <div class="text-center">
-                <div v-if="borroweds.length > 0">
+        <div class="container d-flex flex-column align-items-center mt-5">
+            <div>
+                <h1 class="text-center mb-5">Notificações</h1>
+
+                <div v-if="exchanges.length > 0" class="text-center">
                     <div>
-                        <h2 class="mb-5">Empréstimos de Livros</h2>
+                        <h2 class="mb-5">Trocas</h2>
                     </div>
                     <table class="styled-table">
                         <thead>
                             <tr>
                                 <th scope="col">Usuário</th>
-                                <th scope="col">Livro</th>
-                                <th scope="col">Data de Empréstimo</th>
-                                <th scope="col">Data da Expectatica de Devolução</th>
-                                <th scope="col">Data de Devolução</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <!-- TODO: strips on table, divisions and links, see why is not implementing the css-->
-                        <tbody>
-                            <tr v-for="(loan, index) in borroweds">
-                                <td>{{ loan.user.name }}</td>
-                                <td>{{ loan.book.title }}</td>
-                                <td>{{ (loan.dateLoan) ? loan.dateLoan[2] + "/" + loan.dateLoan[1] + "/" + loan.dateLoan[0] : "-"}}</td>
-                                <td>{{ (loan.expectedReturnDate) ? loan.expectedReturnDate[2] + "/" + loan.expectedReturnDate[1] + "/" + loan.expectedReturnDate[0] : "-" }}</td>
-                                <td>{{ (loan.dateReturn) ? loan.dateReturn[2] + "/" + loan.dateReturn[1] + "/" + loan.dateReturn[0] : "-" }}</td>
-                                <td>{{ loan.status }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div v-if="loaneds.length > 0">
-                    <div>
-                        <h2 class="mb-5 mt-5">Livros pegos emprestado</h2>
-                    </div>
-                    <table class="styled-table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Usuário</th>
-                                <th scope="col">Livro</th>
-                                <th scope="col">Data de Empréstimo</th>
-                                <th scope="col">Data da Expectatica de Devolução</th>
-                                <th scope="col">Data de Devolução</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">Seu Livro</th>
+                                <th scope="col">Livro do Usuário</th>
+                                <th scope="col">Data da Solicitação</th>
                                 <th scope="col">Opção</th>
                             </tr>
                         </thead>
                         <!-- TODO: strips on table, divisions and links, see why is not implementing the css-->
                         <tbody>
-                            <tr v-for="(loan, index) in loaneds">
-                                <td>{{ loan.user.name }}</td>
-                                <td>{{ loan.book.title }}</td>
-                                <td>{{ (loan.dateLoan) ? loan.dateLoan[2] + "/" + loan.dateLoan[1] + "/" + loan.dateLoan[0] : "-"}}</td>
-                                <td>{{ (loan.expectedReturnDate) ? loan.expectedReturnDate[2] + "/" + loan.expectedReturnDate[1] + "/" + loan.expectedReturnDate[0] : "-" }}</td>
-                                <td>{{ (loan.dateReturn) ? loan.dateReturn[2] + "/" + loan.dateReturn[1] + "/" + loan.dateReturn[0] : "-" }}</td>
-                                <td>{{ loan.status }}</td>
+                            <tr v-for="(exchange, index) in exchanges">
+                                <td>{{ exchange.user.name }}</td>
+                                <td>{{ exchange.book.title }}</td>
+                                <td>{{ exchange.bookExchange.title }}</td>
+                                <td>{{ (exchange.dateTransaction) ? exchange.dateTransaction[2] + "/" + exchange.dateTransaction[1] + "/" + exchange.dateTransaction[0] : "-" }}</td>
                                 <td>
-                                    <button v-if="loan.status !='ENTREGOU_SEM_ATRASO' && loan.status !='ATRASO'"
+                                    <button 
                                         class="btn btn-primary col-1 align-self-center" 
                                         type="button" 
                                         style="margin-right: 20px;"
-                                        @click="finishLoan(loan.id)">Entregar livro</button>
+                                        @click="acceptExchange(exchange.id)">Aceitar troca</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+
+                <div v-if="loans.length > 0" class="text-center">
+                    <div>
+                        <h2 class="mb-5">Empréstimos</h2>
+                    </div>
+                    <table class="styled-table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Usuário</th>
+                                <th scope="col">Seu Livro</th>
+                                <th scope="col">Data da Solicitação</th>
+                                <th scope="col">Opção</th>
+                            </tr>
+                        </thead>
+                        <!-- TODO: strips on table, divisions and links, see why is not implementing the css-->
+                        <tbody>
+                            <tr v-for="(loan, index) in loans">
+                                <td>{{ loan.user.name }}</td>
+                                <td>{{ loan.book.title }}</td>
+                                <td>{{ (loan.dateLoan) ? loan.dateLoan[2] + "/" + loan.dateLoan[1] + "/" + loan.dateLoan[0] : "-" }}</td>
+                                <td>
+                                    <button 
+                                        class="btn btn-primary col-1 align-self-center" 
+                                        type="button" 
+                                        style="margin-right: 20px;"
+                                        @click="acceptLoan(loan.id)">Aceitar troca</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div v-if="exchanges.length == 0 && loans.length == 0">
+                    <h2 class="mb-5">Não tem nenhuma notificação para você</h2>
+                </div>
             </div>
+            
         </div>
         <Footer/>
     </main>
 </template>
-
 
 

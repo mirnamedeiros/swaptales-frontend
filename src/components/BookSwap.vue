@@ -44,11 +44,11 @@ export default {
         </div>
         <div class="slide slide2">
             <div class="content">
-                <h5>Livro 1 Título</h5>
-                <span>Autor</span>
+                <h5>{{ titleBook1 }}</h5>
+                <span>{{ authorBook1 }}</span>
                 <div class="separate" style="background-color: #1c2135;"></div>
-                <h5>Livro 2 Título</h5>
-                <span>Autor</span>
+                <h5>{{ titleBook2 }}</h5>
+                <span>{{ authorBook2 }}</span>
             </div>
         </div>
     </div>

@@ -42,6 +42,7 @@ import Footer from '../components/Footer.vue'
                 .then(data => {
                     if(data){
                         this.swaps = JSON.parse(data);
+                        console.log(this.swaps);
                     }else{
                         console.log("Usuario não encontrado");
                     }

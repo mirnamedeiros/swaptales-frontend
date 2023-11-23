@@ -20,16 +20,48 @@
                   <input id="edition" type="text"  name="edition" class="form-control" placeholder="Insira a edição" required v-model="book.edition" >
                 </div>
 
-              <label for="edition" class="form-label">Objetivo</label>
-              <select class="form-select mb-3" aria-label=".form-select-lg example" v-model="book.availabilityStatus">
-                <option value="FOR_SALE" selected >Venda</option>
-                <option value="FOR_TRADE">Troca</option>
-                <option value="FOR_LOAN">Empréstimo</option>
-              </select>
+                <div class="col-md-12 form-group mb-3">
+                  <label for="publishingYear" class="form-label">Ano de publicação</label>
+                  <input id="publishingYear" type="number"  name="publishingYear" class="form-control" placeholder="Insira o ano de publicação" required v-model="book.publishingYear" >
+                </div>
 
-              <div class="col-md-12 form-group mb-3">
-                <input id="file" type="file" accept="image/*" @change="onFileChange"> 
-              </div>
+                <label for="edition" class="form-label">Condição do livro</label>
+                <select class="form-select mb-3" aria-label=".form-select-lg example" v-model="book.conditionBook">
+                  <option value="NOVO" selected >Novo</option>
+                  <option value="SEMI_NOVO">Semi novo</option>
+                  <option value="USADO">Usado</option>
+                  <option value="COM_DEFEITO">Com defeito</option>
+                </select>
+
+                <label for="edition" class="form-label">Objetivo</label>
+                <select class="form-select mb-3" aria-label=".form-select-lg example" v-model="book.availabilityStatus">
+                  <option value="FOR_SALE" selected >Venda</option>
+                  <option value="FOR_TRADE">Troca</option>
+                  <option value="FOR_LOAN">Empréstimo</option>
+                </select>
+
+                <div class="col-md-12 form-group mb-3">
+                  <label for="description" class="form-label">Descrição</label>
+                  <input id="description"  type="text" name="description" class="form-control" placeholder="Insira a descrição" required v-model="book.description" >
+                </div>
+
+                <div class="col-md-12 form-group mb-3">
+                  <input id="file" type="file" accept="image/*" @change="onFileChange"> 
+                </div>
+
+                <div v-if="book.availabilityStatus == 'FOR_SALE'">
+                  <div class="col-md-12 form-group mb-3">
+                    <label for="price" class="form-label">Preço</label>
+                    <input id="price" type="number"  name="price" class="form-control" placeholder="Insira o preço" required v-model="book.price" >
+                  </div>
+                </div>
+
+                <div v-if="book.availabilityStatus == 'FOR_LOAN'">
+                  <div class="col-md-12 form-group mb-3">
+                    <label for="days" class="form-label">Quantidade de dias para emprestimo:</label>
+                    <input id="days" type="number"  name="days" class="form-control" placeholder="Insira a quantidade de dias" required v-model="book.countDaysLoan" >
+                  </div>
+                </div>
 
                 <div class="col-md-12 form-group">
                   <input class="btn btn-primary w-100" style="font-size: 1.2rem;" type="submit" value="Submit">
@@ -63,7 +95,12 @@
                 edition: 1,
                 urlImg: "",
                 ownerUserId: localStorage.getItem('currentUser'),
-                availabilityStatus: "",
+                availabilityStatus: "FOR_SALE",
+                price: 0,
+                publishingYear: "",
+                countDaysLoan: "",
+                conditionBook: "NOVO",
+                description: "",
               },
               file: null,
           }

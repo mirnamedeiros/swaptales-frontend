@@ -26,9 +26,9 @@
             <div class="flex2 text-start d-none d-md-block">
                 <button id="menu-btn" class="whiteLink siteLink" @click="menuToggle()"><i class="fas fa-bars me-2"></i> MENU</button>
             </div>
-            <a href="#" class="flex2 text-start d-none d-md-block">
+            <a href="/notification" class="flex2 text-start d-none d-md-block">
                 <button class="whiteLink siteLink">
-                    MEU HISTÓRICO
+                    NOTIFICAÇÕES
                 </button>
             </a>
 

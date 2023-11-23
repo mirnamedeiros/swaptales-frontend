@@ -1,6 +1,7 @@
 <script>
 import NavBar from '../components/Navbar.vue'
 import Footer from '../components/Footer.vue'
+import { format } from 'date-fns';
 
     export default {
         name: 'BookDetail',
@@ -14,11 +15,18 @@ import Footer from '../components/Footer.vue'
 					title: "",
 				},
 				id: null,
+				idUserBook: null,
+				idUserCurrent: null,
+				today: new Date(),
+				idBookLoan: null,
+				booksUser: [],
 			}
     	},
 		mounted(){
 			this.id = this.$route.params.id;
+			this.idUserCurrent = localStorage.getItem('currentUser');
 			this.findBook(this.id);
+			this.findBooks(this.idUserCurrent);
 		},
 		methods: {
 			findBook(id){
@@ -53,7 +61,120 @@ import Footer from '../components/Footer.vue'
 				this.book.author = data.author;
 				this.book.description = (data.description) ? data.description : '-';
 				this.book.urlImg = data.urlImg;
+				this.book.availabilityStatus = data.availabilityStatus;
+				this.book.countDaysLoan = data.countDaysLoan;
+				this.idUserBook = data.ownerUser.id;
+			},
+			findBooks(id){
+				fetch(`http://localhost:8080/swaptales/api/books/user/${id}`, {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					method: 'GET',
+				})
+					.then(response => {
+						if (!response.ok) {
+							throw new Error(`Erro ao recuperar o usuario: ${response.statusText}`);
+						}
+						return response.text();
+					})
+					.then(data => {
+						if(data){
+							this.booksUser = JSON.parse(data);
+						}else{
+							console.log("Usuario não encontrado");
+						}
+					})
+					.catch(error => {
+						console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+					});
+        	},
+			buyBook(){
+				console.log(format(this.today, 'MM-dd-yyyy'));
+				let payload = {
+					dateTransaction: format(this.today, 'MM-dd-yyyy'),
+					status: "ACEITO",
+					bookId: this.id,
+					price: this.book.price,
+					userId: this.idUserCurrent
+				}
+
+				fetch(`http://localhost:8080/swaptales/api/transactions/sale`, {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					method: 'POST',
+					body: JSON.stringify(payload),
+				})
+					.then(response => {
+                    if (response.status === 200) {
+                      console.log('Livro comprado com sucesso');
+                      this.$router.push('/books');
+                    } else {
+                      console.error('Erro ao comprar o livro:', response.statusText);
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Erro ao fazer a solicitação:', error);
+                  });
+			},
+			loanBook(){
+				
+				let payload = {
+					dateLoan: format(this.today, 'MM-dd-yyyy'),
+					status: "PENDENTE",
+					bookId: this.id,
+					userId: this.idUserCurrent
+				}
+
+				fetch(`http://localhost:8080/swaptales/api/transactions/loan`, {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					method: 'POST',
+					body: JSON.stringify(payload),
+				})
+					.then(response => {
+                    if (response.status === 200) {
+                      console.log('Livro pego emprestado com sucesso');
+                      this.$router.push('/books');
+                    } else {
+                      console.error('Erro ao pegar emprestado um livro:', response.statusText);
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Erro ao fazer a solicitação:', error);
+                  });
+			},
+			tradeBook(){
+				let payload = {
+					dateTransaction: format(this.today, 'MM-dd-yyyy'),
+					status: "PENDENTE",
+					bookId: this.id,
+					userId: this.idUserCurrent,
+					bookExchangeId: this.idBookLoan,
+				}
+
+				fetch(`http://localhost:8080/swaptales/api/transactions/exchange`, {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					method: 'POST',
+					body: JSON.stringify(payload),
+				})
+					.then(response => {
+                    if (response.status === 200) {
+                      console.log('Pedido de troca realizado com sucesso');
+                      this.$router.push('/books');
+                    } else {
+                      console.error('Erro ao solicitar troca de um livro:', response.statusText);
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Erro ao fazer a solicitação:', error);
+                  });
 			}
+			
 		},
     }
 </script>
@@ -77,7 +198,9 @@ import Footer from '../components/Footer.vue'
 							<span class="review-no">{{ book.countReview }} reviews</span>
 						</div>
 						
-						<h4 class="price"><span>R$ {{book.title}}</span></h4>
+						<h4 class="price" v-if="book.availabilityStatus == 'FOR_SALE'"><span>R$ {{book.price}}</span></h4>
+						<h4 class="price" v-if="book.availabilityStatus == 'FOR_LOAN'"><span>Dias de emprestimo: {{ book.countDaysLoan }} Dias</span></h4>
+						
 						<h5 class="titles">Linguagem:
 							<span>{{ book.idioma }}</span>
 						</h5>
@@ -87,9 +210,40 @@ import Footer from '../components/Footer.vue'
 
                         <p class="product-description">{{ book.description }}</p>
 
+						<div v-if="book.availabilityStatus == 'FOR_TRADE'">
+							<h5 class="title">Selecione o livro para trocar</h5>
+							<select class="form-select" aria-label=".form-select-lg example" v-model="idBookLoan">
+								<option v-for="option in booksUser" :key="option.id" :value="option.id">
+									{{ option.title }}
+								</option>
+							</select>
+						</div>
+
 						<div class="action">
-							<button class="btn btn-primary col-1 align-self-center" type="button" style="margin-right: 20px;">Comprar</button>
-							<button class="btn btn-primary col-1 align-self-center" type="button"><span class="fa fa-heart"></span></button>
+							<div v-if="idUserCurrent != idUserBook">
+								<button 
+									v-if="book.availabilityStatus == 'FOR_SALE'"
+									class="btn btn-primary col-1 align-self-center" 
+									type="button" 
+									style="margin-right: 20px;"
+									@click="buyBook()">Comprar</button>
+								<button 
+									v-if="book.availabilityStatus == 'FOR_TRADE'"
+									class="btn btn-primary col-1 align-self-center" 
+									type="button" 
+									style="margin-right: 20px;"
+									@click="tradeBook()">Trocar</button>
+								<button 
+									v-if="book.availabilityStatus == 'FOR_LOAN'"
+									class="btn btn-primary col-1 align-self-center" 
+									type="button" 
+									style="margin-right: 20px;"
+									@click="loanBook()">Empréstimo</button>	
+								<button class="btn btn-primary col-1 align-self-center" type="button"><span class="fa fa-heart"></span></button>
+							</div>
+							<div v-if="idUserCurrent == idUserBook">
+								<button class="btn btn-primary col-1 align-self-center" type="button"><span class="fa fa-heart"></span></button>
+							</div>
 						</div>
                         
 					</div>
