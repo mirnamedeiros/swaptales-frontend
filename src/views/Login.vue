@@ -107,25 +107,43 @@ import vuex from 'vuex'
 				);
 
 				if (response.status === 200) {
+					this.snackbar = {
+						color: "success",
+						icon: "fa-solid fa-circle-check",
+						mode: "multi-line",
+						position: "top",
+						timeout: 1000,
+						title: "",
+						text: "Logado com sucesso!",
+						visible: true
+					};
 					window.localStorage.clear();
 					window.localStorage.setItem("jwtToken", response.data.token);
 					window.localStorage.setItem("currentUser", response.data.user.id);
 					window.location.href = '/books';
-					alert('Logado com sucesso');
 				} else {
-					alert("Erro de autenticação: " + response.statusText);
+					this.snackbar = {
+						color: "error",
+						icon: "fa-solid fa-circle-exclamation",
+						mode: "multi-line",
+						position: "top",
+						timeout: 3000,
+						title: "Erro de autenticação: ",
+						text: response.statusText,
+						visible: true
+					};
 				}
 			} catch (error) {
-        this.snackbar = {
-          color: "error",
-          icon: "fa-solid fa-circle-exclamation",
-          mode: "multi-line",
-          position: "top",
-          timeout: 3000,
-          title: "Erro ao fazer login: ",
-          text: error,
-          visible: true
-        };
+				this.snackbar = {
+				color: "error",
+				icon: "fa-solid fa-circle-exclamation",
+				mode: "multi-line",
+				position: "top",
+				timeout: 3000,
+				title: "Erro ao fazer login: ",
+				text: error,
+				visible: true
+				};
 			}
 		}
       }
