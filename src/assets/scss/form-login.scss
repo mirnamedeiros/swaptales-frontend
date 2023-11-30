@@ -343,4 +343,12 @@ span.checkmark::after {
 	font-size: 16px;
 	height: 48px;
 }
+
+.field-icon {
+	float: right;
+	top: -25px;
+	right: 15px;
+	position: relative;
+	z-index: 2;
+  }
   

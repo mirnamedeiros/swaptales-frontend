@@ -20,7 +20,7 @@ $white: #fff;
 
   @if ($direction == up) {
 
-    $width: $width / 2;
+    $width: calc($width / 2);
     border-left: $width solid $background-color;
     border-right: $width solid $background-color;
     border-bottom: $height solid $foreground-color;
