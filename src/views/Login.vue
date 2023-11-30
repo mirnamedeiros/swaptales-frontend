@@ -1,4 +1,20 @@
 <template>
+  <v-snackbar v-model="snackbar.visible" auto-height :color="snackbar.color" :multi-line="snackbar.mode === 'multi-line'" :timeout="snackbar.timeout" :top="snackbar.position === 'top'">
+    <v-layout align-center pr-4 class="d-flex align-items-center">
+      <v-icon dark large style="margin-right: 20px;">
+        {{ snackbar.icon }}
+      </v-icon>
+      <v-layout column class="d-flex flex-column">
+        <div>
+          <strong>{{ snackbar.title }}</strong>
+        </div>
+        <div>{{ snackbar.text }}</div>
+      </v-layout>
+    </v-layout>
+    <v-btn v-if="snackbar.timeout === 0" icon @click="snackbar.visible = false">
+      <v-icon>clear</v-icon>
+    </v-btn>
+  </v-snackbar>
 		<div class="container-login">
 				<div class="login">
 					<div class="text-wrap p-4 p-lg-5 text-center d-flex align-items-center">
@@ -55,14 +71,24 @@ import vuex from 'vuex'
       },
 
       data() {
-		return {
-              auth : {
-                  username: "",
-                  password: "",
-				  error: null,
-				  sucess: false
-              }
-          }
+        return {
+          auth : {
+              username: "",
+              password: "",
+              error: null,
+              sucess: false,
+          },
+          snackbar: {
+            color: null,
+            icon: null,
+            mode: null,
+            position: "top",
+            text: null,
+            timeout: 3000,
+            title: null,
+            visible: false
+          },
+        }
       },
 
       methods: {
@@ -90,8 +116,16 @@ import vuex from 'vuex'
 					alert("Erro de autenticação: " + response.statusText);
 				}
 			} catch (error) {
-				console.error("Erro ao fazer login:", error);
-				alert("Erro ao fazer login: " + error);
+        this.snackbar = {
+          color: "error",
+          icon: "fa-solid fa-circle-exclamation",
+          mode: "multi-line",
+          position: "top",
+          timeout: 3000,
+          title: "Erro ao fazer login: ",
+          text: error,
+          visible: true
+        };
 			}
 		}
       }
