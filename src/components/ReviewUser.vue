@@ -1,14 +1,56 @@
+<script>
+    export default {
+        data() {
+                return {
+                    users : [],
+                }
+            },
+            mounted() {
+                this.getUsers()
+            },
+
+        methods: {
+                getUsers(){
+                
+                fetch(`http://localhost:8080/swaptales/api/users`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    method: 'GET',
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Erro ao recuperar usuarios: ${response.statusText}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if(data){
+                            this.users = data
+                        }else{
+                            console.log("Usuarios não encontrado");
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                    });
+               },
+
+        },
+    }
+</script>
+
 
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
+        <div v-for="user in users" :key="user.id" class="row">
+            <div  class="col-lg-12">
                 <div class="card">
                     <div class="row">
                         <div class="col-sm-12 col-lg-6">
-                            <div class="card-body">
-                                <h5>Nome do Usuário</h5>
-                                <h6 class="text-muted">42 seguidores</h6>
+                            <div  class="card-body">
+                                <h5>{{ user.name }}</h5>
+                                <h6 class="text-muted">{{ user.countFollowers }} seguidores</h6>
                                 <div id="buttons" class="d-flex justify-content-start" style="margin-top: 2rem;">
                                     <a class="btn btn-sm btn-primary" style="margin-right: 1rem;">Fazer comentário</a>
                                     <a class="btn btn-sm btn-primary"  style="margin-right: 1rem;">Todas as Avaliações</a>

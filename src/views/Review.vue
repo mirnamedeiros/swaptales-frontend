@@ -28,7 +28,7 @@ import 'font-awesome/css/font-awesome.css'
               })
                 .then(response => response.json())
                 .then(data => {
-                    this.reviews = data;
+                    this.reviews = data.json;
                     console.log(this.reviews);
                 })
           }
