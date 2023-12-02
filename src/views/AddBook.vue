@@ -70,6 +70,17 @@
               </form>
         
             </div>
+            <div>
+               
+                
+
+            <modal :show-modal="showModal" @close="fecharModal">
+                  <!-- Conteúdo do seu modal aqui -->
+                  <p>Livro adicionado com sucesso.</p>
+                
+            </modal>
+              
+            </div>
           </div>
     </main>
     <!-- <Footer/> -->
@@ -79,16 +90,19 @@
 <script>
   import NavBar from '../components/Navbar.vue'
   import Footer from '../components/Footer.vue'
+  import Modal from '../components/Modal.vue';
 
   export default {
       name: 'AddBook',
       components: {
         NavBar, 
-        Footer
+        Footer,
+        Modal
       },
 
       data() {
           return {
+            showModal: false,
               book : {
                 title: "",
                 author: "",
@@ -139,8 +153,8 @@
                 })
                   .then(response => {
                     if (response.status === 200) {
-                      alert('Livro adicionado com sucesso');
-                      this.$router.push('/books');
+                      this.showModal = true
+                      // this.$router.push('/books');
                     } else {
                       alert('Erro ao adicionar livro: ' +  response.statusText);
                     }
@@ -153,8 +167,12 @@
             .catch(error => {
               alert('Erro ao fazer a solicitação para a api de imagens: ' + error);
             })
-        }
-      },
+        } ,
+        fecharModal() {
+          this.showModal = false;
+          this.$router.push('/books'); // Redirecionamento após fechar a modal
+        },
+          },
           
   }
 </script>
