@@ -11,7 +11,8 @@
                                 <h6 class="text-muted">42 seguidores</h6>
                                 <div id="buttons" class="d-flex justify-content-start" style="margin-top: 2rem;">
                                     <a class="btn btn-sm btn-primary" style="margin-right: 1rem;">Fazer comentário</a>
-                                    <a class="btn btn-sm btn-primary">Todas as Avaliações</a>
+                                    <a class="btn btn-sm btn-primary"  style="margin-right: 1rem;">Todas as Avaliações</a>
+                                    <a class="btn btn-sm btn-primary"  style="margin-right: 1rem;">Seguir</a>
                                 </div>
                             </div>
                         </div>

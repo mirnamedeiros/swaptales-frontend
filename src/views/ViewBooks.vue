@@ -52,20 +52,33 @@ import Footer from '../components/Footer.vue'
 
 <template>
     <main>
-        <NavBar/>
-        <div class="container d-flex flex-wrap justify-content-center">
-            <Book v-for="book in books"
-                :id="book.id"
-                :imagePath="book.urlImg"
-                :author="book.author"
-                :title="book.title"
-                :text="book.text"
-                :type="book.availabilityStatus"
-                :link="book.link"
-                :idUser="book.ownerUser.id"/>
+        <NavBar />
+    
+  
+    <div class="container position-relative">
+          <a href="/add" class="position-absolute top-3 end-0 mt-1 mr-6 pb-5">
+            <button type="button" class="btn btn-primary">
+              <i class="fa-solid fa-plus pr-2"></i>
+              <span class="p-2 text-decoration-none">ADICIONAR LIVRO</span>
+            </button>
+          </a>
+          <div class="d-flex flex-wrap justify-content-center mt-2 pt-4">
+            <Book
+              v-for="book in books"
+              :key="book.id"
+              :id="book.id"
+              :imagePath="book.urlImg"
+              :author="book.author"
+              :title="book.title"
+              :text="book.text"
+              :type="book.availabilityStatus"
+              :link="book.link"
+              :idUser="book.ownerUser.id"
+            />
+          </div>
         </div>
-        <Footer/>
-    </main>
-</template>
+        <Footer />
+      </main>
+    </template>
 
 
