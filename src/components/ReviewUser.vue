@@ -3,13 +3,31 @@
         data() {
                 return {
                     users : [],
+                    followers: [],
+                    following: [],                    
+                    userCurrent: {
+                        id: null,
+                    },
+                    isFollowingMap: {},
                 }
             },
-            mounted() {
+        mounted() {
+                this.id = localStorage.getItem('currentUser');
+                this.idCurrentUser = localStorage.getItem('currentUser');
+                this.getFollowingByUser(this.id)
+
                 this.getUsers()
-            },
+        },
 
         methods: {
+                isUserFollowing(userId) {
+                // Verifica se o usuário está na lista de usuários seguidos
+                    return this.isFollowingMap[userId] || false;
+                },
+                updateFollowStatus(userId, isFollowing) {
+                    // Atualiza o estado de seguimento para um usuário específico
+                    this.$set(this.isFollowingMap, userId, isFollowing);                
+                },
                 getUsers(){
                 
                 fetch(`http://localhost:8080/swaptales/api/users`, {
@@ -36,6 +54,84 @@
                     });
                },
 
+               getFollowingByUser(id){
+                fetch(`http://localhost:8080/swaptales/api/users/following/${id}`, {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					method: 'GET',
+				})
+					.then(response => {
+						if (!response.ok) {
+							throw new Error(`Erro ao recuperar seguidores: ${response.statusText}`);
+						}
+						return response.text();
+					})
+					.then(data => {
+						if(data){
+							this.setFollowers(JSON.parse(data));
+						}else{
+							alert("Nenhum seguidor encontrado");
+						}
+					})
+					.catch(error => {
+						console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+					});
+               },
+
+               followUser(idUser){
+                    this.userCurrent.id = this.idCurrentUser;
+
+                    fetch(`http://localhost:8080/swaptales/api/users/follow-user/${idUser}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    method: 'PUT',
+                    body: JSON.stringify(this.userCurrent),
+                     })
+                    .then(response => response.json())
+                    .then(data => {
+                        // this.getFollowingByUser( this.userCurrent.id );
+                        this.updateFollowStatus(idUser, true);
+                    })
+                    .catch(error => {
+                        console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                    });
+                },
+               unfollowUser(idUser){
+                    this.userCurrent.id = this.idCurrentUser;
+
+                    fetch(`http://localhost:8080/swaptales/api/users/unfollow-user/${idUser}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    method: 'PUT',
+                    body: JSON.stringify(this.userCurrent),
+                    })
+                    .then(response =>  response.json())
+                    .then(data => {
+                        this.updateFollowStatus(idUser, false);
+                    })
+                    .catch(error => {
+                        console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                    });
+                },
+
+               follow(uid){
+                     const isFollowing = this.isUserFollowing(uid);
+
+                    if (isFollowing) {
+                        this.unfollowUser(uid);
+                    } else {
+                        this.followUser(uid);
+                    }
+               },
+               setFollowers(followers) {
+                followers.forEach(follower => {
+                    this.isFollowingMap[follower.id] = true;
+                });
+}
+
         },
     }
 </script>
@@ -43,18 +139,19 @@
 
 <template>
     <div class="container">
-        <div v-for="user in users" :key="user.id" class="row">
-            <div  class="col-lg-12">
-                <div class="card">
+        <div class="row">
+            <div  class="col-lg-12" >
+                <div class="card" v-for="user in users" :key="user.id" >
                     <div class="row">
-                        <div class="col-sm-12 col-lg-6">
+                        <div class="col-sm-12 col-lg-6" >
                             <div  class="card-body">
                                 <h5>{{ user.name }}</h5>
                                 <h6 class="text-muted">{{ user.countFollowers }} seguidores</h6>
                                 <div id="buttons" class="d-flex justify-content-start" style="margin-top: 2rem;">
                                     <a class="btn btn-sm btn-primary" style="margin-right: 1rem;">Fazer comentário</a>
                                     <a class="btn btn-sm btn-primary"  style="margin-right: 1rem;">Todas as Avaliações</a>
-                                    <a class="btn btn-sm btn-primary"  style="margin-right: 1rem;">Seguir</a>
+                                    <a class="btn btn-sm btn-primary"  style="margin-right: 1rem;"  @click="follow(user.id)" :isFollowing="isUserFollowing(user.id)"
+        @follow-toggled="updateFollowStatus">{{ isUserFollowing(user.id) ? 'Deixar de seguir' : 'Seguir' }} </a>
                                 </div>
                             </div>
                         </div>
