@@ -1,20 +1,17 @@
 <script>
   import NavBar from '../components/Navbar.vue'
   import Footer from '../components/Footer.vue'
-  import vueMask from 'vue-jquery-mask'
-  import { Form, Field, ErrorMessage, defineRule } from 'vee-validate';
+  import { Form, Field, ErrorMessage } from 'vee-validate';
 
     export default {
       name: 'AddUser',
       components: {
         NavBar, 
         Footer,
-        vueMask,
         Form,
         Field,
         ErrorMessage
       },
-
       data() {
           return {
               user : {
@@ -85,65 +82,62 @@
             this.showPassword = !this.showPassword;
           },
 
-          onSubmit(values) {
-            this.$validator.validateAll().then(function(success) {
-              if (!success) return;
-
-              alert('SUCCESS!! :-)\n\n' + JSON.stringify(values, null, 4));
-            })
-          }
+          usernameValidation(value) {
+            if (!value || !value.length) {
+              return "O nome de usuário é obrigatório.";
+            }
+            if (value.length < 3) {
+              return "O nome de usuário precisa ter no mínimo 3 caracteres.";
+            }
+            return true;
+          },
+          nameValidation(value) {
+            if (!value || !value.length) {
+              return "O nome é obrigatório.";
+            }
+            if (value.length < 3) {
+              return "O nome precisa ter no mínimo 3 caracteres.";
+            }
+            return true;
+          },
+          passwordValidation(value) {
+            if (!value || !value.length) {
+              return "A senha é obrigatória.";
+            }
+            if (value.length < 8) {
+              return "A senha precisa ter no mínimo 8 caracteres.";
+            }
+            return true;
+          },
+          phoneValidation(value) {
+            if (!value || !value.length) {
+              return "O número de telefone é obrigatório";
+            }
+            if (!/^([14689][0-9]|2[12478]|3([1-5]|[7-8])|5([13-5])|7[193-7])9[0-9]{8}?$/.test(value)) {
+              return "Informe um número de telefone válido com 11 dígitos.";
+            }
+            return true;
+          },
+          cpfValidation(value) {
+            if (!value || !value.length) {
+              return "O número de CPF é obrigatório.";
+            }
+            if (!/^[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}?$/.test(value)) {
+              return "Informe um CPF válido.";
+            }
+            return true;
+          },
+          emailValidation(value) {
+            if (!value || !value.length) {
+              return "O email é obrigatório.";
+            }
+            if (!/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/.test(value)) {
+              return "Informe um email válido.";
+            }
+            return true;
+          },
       },
     }
-
-  // FORM VALIDATION
-  
-  // NOTE: the regex is working but it needs to be a Field component to work properly
-
-  defineRule("name", (value) => {
-    if (!value || !value.length) {
-      return "Este campo é obrigatório";
-    }
-    if (value.length < 3) {
-      return "O campo precisa ter no mínimo 3 caracteres.";
-    }
-    return true;
-  });
-  defineRule("password", (value) => {
-    if (!value || !value.length) {
-      return "Este campo é obrigatório";
-    }
-    if (value.length < 8) {
-      return "A senha precisa ter no mínimo 8 caracteres.";
-    }
-    return true;
-  });
-  defineRule("phone", (value) => {
-    if (!value || !value.length) {
-      return "Este campo é obrigatório";
-    }
-    if (!value.length > 11 && /[0-9-]+/.test(value)) {
-      return "Informe um número de telefone válido";
-    }
-    return true;
-  });
-  defineRule("cpf", (value) => {
-    if (!value || !value.length) {
-      return "Este campo é obrigatório";
-    }
-    if (!/^[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}/.test(value)) {
-      return "Informe um CPF válido";
-    }
-    return true;
-  });
-  defineRule("email", (value) => {
-    if (!value || !value.length) {
-      return "Este campo é obrigatório";
-    }
-    if (!/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/.test(value)) {
-      return "Informe um email válido";
-    }
-    return true;
-  });
 
 </script>
 
@@ -152,83 +146,77 @@
         <div class="my-5">
             <div class="mx-auto w-50 " style="max-width:100%;">
                 <h2 class="text-center mb-3">Cadastro do Usuario</h2>
-                <Form @submit="onSubmit">
+                <Form @submit="addUser">
 
                     <div class="col-md-12 form-group mb-3">
-                      <label for="username" class="form-label">Usuário</label>
+                      <label for="username" class="form-label">Usuário *</label>
                       <Field 
                         id="username" type="text"  name="username" 
-                        class="form-control" placeholder="Insira o usuário" 
-                        rules="name"
+                        class="form-control"
+                        placeholder="Insira o usuário" 
+                        :rules="usernameValidation"
                         v-model="user.username">
                       </Field>
                       <!-- TODO change color to red (APPLY TO THE REST)-->
-                      <ErrorMessage name="username"/>
+                      <ErrorMessage name="username" class="invalid"/>
                     </div>
 
                     <div class="col-md-12 form-group mb-3">
-                      <label for="password" class="form-label">Senha</label>
-                      <!-- TODO change to Field component (APPLY TO vue-mask COMPONENT TOO)-->
-                      <input 
-                        v-if="showPassword" type="text" 
+                      <label for="password" class="form-label">Senha *</label>
+                      <Field
+                        v-bind:type="[showPassword ? 'text' : 'password']"
+                        id="password" type="text"  name="password" 
                         class="form-control" placeholder="Insira a senha" 
-                         v-model="user.password" 
-                         rules="password">
-                      <input 
-                        v-else type="password" 
-                        class="form-control" placeholder="Insira a senha" 
-                         v-model="user.password"
-                         rules="password">
+                        :rules="passwordValidation"
+                        v-model="user.password">
+                      </Field>
                       <i class="fa-regular field-icon fa-lg" :class="{'fa-eye-slash': showPassword, 'fa-eye': !showPassword}" @click="toggleShow"></i>
-                      <ErrorMessage name="password" />
+                      <ErrorMessage name="password" class="invalid"/>
                     </div>
 
                     <div class="col-md-12 form-group mb-3">
-                      <label for="name" class="form-label">Nome</label>
+                      <label for="name" class="form-label">Nome *</label>
                       <Field 
                         id="name"  type="text" name="name" 
                         class="form-control" placeholder="Insira o nome completo" 
                         v-model="user.name"
-                        rules="name">
+                        :rules="nameValidation">
                       </Field>
-                        <ErrorMessage name="name" />
+                      <ErrorMessage name="name" class="invalid"/>
                     </div>
 
                     <div class="col-md-12 form-group mb-3">
-                      <label for="cpf" class="form-label">CPF</label>
-                      <vue-mask
+                      <label for="cpf" class="form-label">CPF *</label>
+                      <Field
                         id="cpf" type="text"  name="cpf" 
                         class="form-control" placeholder="Insira o CPF" 
                         v-model="user.cpf"
-                        mask="000.000.000-00"
-	                      :raw="true"
-                        rules="cpf">
-                      </vue-mask>
-                      <ErrorMessage name="cpf" />
+                        :rules="cpfValidation">
+                      </Field>
+                      <ErrorMessage name="cpf" class="invalid"/>
                     </div>
 
                     <div class="col-md-12 form-group mb-3">
-                      <label for="email" class="form-label">Email</label>
+                      <label for="email" class="form-label">Email *</label>
                       <Field 
                         id="email" type="email"  name="email" 
-                        class="form-control" placeholder="Insira o email" 
+                        class="form-control"
+                        placeholder="Insira o email" 
                         v-model="user.email"
-                        rules="email">
+                        :rules="emailValidation">
                       </Field>
-                        <ErrorMessage name="email" />
+                        <ErrorMessage name="email" class="invalid"/>
                     </div>
 
                     <div class="col-md-12 form-group mb-3">
-                      <label for="telephone" class="form-label">Telefone</label>
-                      <vue-mask 
-                        id="telephone" type="text"  name="telephone" 
+                      <label for="telephone" class="form-label">Telefone *</label>
+                      <Field
+                        id="telephone" type="phone"  name="telephone" 
                         class="form-control" placeholder="Insira o telefone" 
                         v-model="user.telephone"
-                        mask="(00) 00000-0000"
-	                      :raw="true"
-                        rules="phone">
-                      </vue-mask>
-                      <ErrorMessage name="phone" />
+                        :rules="phoneValidation">
+                      </Field>
+                      <ErrorMessage name="telephone" class="invalid"/>
                     </div>
 
                     <!-- TODO: change button and placeholder text -->
@@ -246,7 +234,7 @@
                 <div>
                     
                 </div>
-                </Form>
+              </Form>
         
             </div>
         </div>
@@ -257,4 +245,8 @@
 <style lang="scss" scoped>
     @import url('../assets/scss/style.scss');
     @import url('../assets/scss/form-login.scss');
+
+    .invalid {
+      color: #FD5A46;
+    }
 </style>
