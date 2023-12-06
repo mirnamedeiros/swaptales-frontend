@@ -44,6 +44,21 @@ export default{
             ]
         }
     },
+    mounted(){
+        this.getbooks();
+    },
+    methods: {
+        getbooks(){
+                fetch('http://localhost:8080/swaptales/api/books/top-books', {
+                    method: 'GET'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    this.books = data
+                    console.log(data)
+                })
+            },
+    },
 }
 </script>
 
@@ -58,13 +73,13 @@ export default{
                 <BookPodium v-for="(book, index) in books.slice(0, 3)"
                 :key="book.id"
                 :id="index"
-                :imagePath="book.imagePath"
+                :imagePath="book.urlImg"
                 :author="book.author"
                 :title="book.title"
-                :text="book.text"
-                :goal="book.goal"
-                :link="book.link"/>
-            </div>
+                :text="book.description"
+                :goal="book.index + 1"
+                :link="'/book-detail/' + book.id"/>
+            </div> 
             <table class="styled-table">
                     <thead>
                         <tr>
@@ -74,15 +89,10 @@ export default{
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>4</td>
-                            <td>A Tormenta de Espadas</td>
-                            <td>Oscar Wilde</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>O Festim dos Corvos</td>
-                            <td>George R. R. Martin</td>
+                        <tr v-for="(book, index) in books.slice(3, 5)">
+                            <td>{{ index + 4}}</td>
+                            <td>{{book.title}}</td>
+                            <td>{{book.author}}</td>
                         </tr>
                     </tbody>
                 </table>
