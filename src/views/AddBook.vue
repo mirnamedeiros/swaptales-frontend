@@ -6,7 +6,7 @@
               <h2 class="text-center mb-3">Adicionar livro</h2>
               <Form @submit="addBook">
                 <div class="col-md-12 form-group mb-3">
-                  <label for="title" class="form-label">Titulo</label>
+                  <label for="title" class="form-label">Titulo *</label>
                   <Field 
                     id="title"  
                     type="text" 
@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="col-md-12 form-group mb-3">
-                  <label for="author" class="form-label">Autor</label>
+                  <label for="author" class="form-label">Autor *</label>
                   <Field 
                     id="author" 
                     type="text"  
@@ -34,7 +34,7 @@
                 </div>
               
                 <div class="col-md-12 form-group mb-3">
-                  <label for="edition" class="form-label">Edição</label>
+                  <label for="edition" class="form-label">Edição *</label>
                   <Field 
                     id="edition" 
                     type="text"  
@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="col-md-12 form-group mb-3">
-                  <label for="publishingYear" class="form-label">Ano de publicação</label>
+                  <label for="publishingYear" class="form-label">Ano de publicação *</label>
                   <Field 
                     id="publishingYear" 
                     type="number"  
@@ -84,8 +84,7 @@
                     name="description" 
                     class="form-control" 
                     placeholder="Insira a descrição" 
-                    v-model="book.description" 
-                    :rules="descriptionValidation">
+                    v-model="book.description">
                   </Field>
                   <ErrorMessage name="description" class="invalid"/>
                 </div>
@@ -96,7 +95,7 @@
 
                 <div v-if="book.availabilityStatus == 'FOR_SALE'">
                   <div class="col-md-12 form-group mb-3">
-                    <label for="price" class="form-label">Preço</label>
+                    <label for="price" class="form-label">Preço *</label>
                     <Field 
                       id="price" 
                       type="number"  
@@ -112,7 +111,7 @@
 
                 <div v-if="book.availabilityStatus == 'FOR_LOAN'">
                   <div class="col-md-12 form-group mb-3">
-                    <label for="days" class="form-label">Quantidade de dias para emprestimo:</label>
+                    <label for="days" class="form-label">Quantidade de dias para empréstimo *</label>
                     <Field 
                       id="days" 
                       type="number"  
@@ -263,9 +262,6 @@
             return "Informe um ano de publicação válido";
           }
           return this.isRequired(value, 'O ano de publicação');
-        },
-        descriptionValidation(value) {
-          return this.isRequired(value, 'A descrição');
         },
         priceValidation(value) {
           if(value < 0) {
