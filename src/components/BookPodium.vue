@@ -14,11 +14,16 @@
                 return `menu-${Math.random().toString(36).substring(7)}`;
             }
         },
+        methods: {
+            redirectBookDetail(){
+                this.$router.push(this.link);
+            }
+        }
     };
 </script>
 
 <template>
-    <div class="card mx-3 my-5">
+    <div class="card mx-3 my-5" @click="redirectBookDetail">
         <div class="ribbon purple"><span>{{ id + 1 }}</span></div>
         <div class="card-img">
             <img :src=imagePath alt="">
