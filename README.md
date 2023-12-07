@@ -1,29 +1,29 @@
-# swaptales-frontend
+# Swaptales
 
-This template should help get you started developing with Vue 3 in Vite.
+Projeto da disciplina Desenvolvimento Web 2: Swap Tales - sistema de trocas/venda/emprestimo de livros. O back-end do projeto se encontra disponivel em https://github.com/raquelbrto/swap-tales
 
-## Recommended IDE Setup
+Utilizamos para esse projeto:
+- Vue.js 3
+- Vuetify
+- VeeValidate
+- Bootstrap
+- Vite
+- Node.js
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+### Inicialização do Projeto
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
+### Compilação e hot-reload do projeto
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Hot-reload do css
 
 ```sh
-npm run build
+npm run sass
 ```
+
