@@ -325,11 +325,13 @@ export default {
                                             <div class="row">
                                                 <div v-for="(book, bookIndex) in group" :key="bookIndex"
                                                     class="col-4 d-flex align-items-center justify-content-center">
+                                                    <router-link :to="'/book-detail/' + book.id" class="text-decoration-none">
                                                     <div class="card-img">
                                                         <img :src="book.urlImg" alt="Book Cover" width="155">
                                                     </div>
+                                                    </router-link>
                                                 </div>
-                                            </div>
+                                            </div>                                       
                                         </div>
                                     </div>
                                 </div>
