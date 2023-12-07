@@ -254,7 +254,7 @@ table {
 }
 
 .card-profile {
-  width: 700px;
+  width: 80%;
   border: none;
   border-radius: 10px;
   background-color: #fff;
@@ -264,6 +264,10 @@ table {
   flex-direction: column;
   margin: 10px;
   border-radius: 0;
+
+  .image {
+    text-align: center;
+  }
 
   h5 {
     color: $primary-color;
@@ -282,4 +286,13 @@ table {
 .separate {
   border-top: 2px solid $secondary-color;
   width: 100%;
+}
+
+@media screen and (max-width: 765px) {
+	#userInfo {
+		flex-direction: column;
+		> * {
+			width: 100%;
+		  }
+	}
 }

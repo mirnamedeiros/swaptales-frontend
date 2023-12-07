@@ -260,13 +260,13 @@ export default {
         <NavBar />
         <div class="container mt-5 d-flex justify-content-center flex-column align-items-center">
             <div class="card-profile p-3">
-                <div class="d-flex align-items-center">
+                <div id="userInfo" class="d-flex align-items-center">
                     <div class="image">
                         <img :src="user.urlImg" class="m-2" width="155">
                     </div>
                     <div class="ml-3 w-100">
                         <h4 class=" mx-2 mb-0 mt-0">{{ user.name }}</h4>
-                        <div class="p-2 m-2 d-flex justify-content-between rounded stats">
+                        <div class="p-2 m-2 d-flex justify-content-between flex-wrap rounded stats">
                             <!--div class="p-1 d-flex flex-column align-items-center">
                                 <span class="articles">Lidos</span>
                                 <span class="number1">25</span>
@@ -289,12 +289,12 @@ export default {
                                 <span class="number1">{{ user.countFollowers }}</span>
                             </div>
                         </div>
-                        <div class="button mt-2 d-flex flex-row align-items-center">
-                            <button v-if="id == idCurrentUser" class="btn btn-sm btn-primary w-100 mx-2"
+                        <div class="button mt-2 d-flex flex-row align-items-center justify-content-center">
+                            <button v-if="id == idCurrentUser" class="btn btn-sm btn-primary w-50 mx-2"
                                 @click="redirectEditUser">
                                 Editar
                             </button>
-                            <button v-if="id != idCurrentUser" class="btn btn-sm btn-primary w-100 ml-2 mx-2"
+                            <button v-if="id != idCurrentUser" class="btn btn-sm btn-primary w-50 ml-2 mx-2"
                                 @click="followUser()">
                                 Seguir
                             </button>
