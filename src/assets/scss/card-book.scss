@@ -159,6 +159,7 @@ $white: #fff;
   
       &:hover {
         cursor: pointer;
+        color: $secondary-color;
         transition: transform 0.3s;
         transform: translateY(-5px);
       }
