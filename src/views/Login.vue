@@ -30,30 +30,48 @@
 							<h3 class="mb-4">Login</h3>
 						</div>
 					</div>
-						<form class="signin-form" @submit="login">
+						<Form @submit="login" class="signin-form" >
 							<div class="form-group mb-3">
-								<input v-model="auth.username" type="text" class="form-control" placeholder="Usuário" required>
+								<label for="username" class="form-label">Usuário</label>
+								<Field 
+									id="username" type="text"  name="username" 
+									class="form-control"
+									placeholder="Usuário" 
+									:rules="usernameValidation"
+									v-model="auth.username">
+								</Field>
+								<!-- TODO change color to red (APPLY TO THE REST)-->
+								<ErrorMessage name="username" class="invalid"/>
 							</div>
 							<div class="form-group mb-3">
-							<input v-model="auth.password" type="password" class="form-control" placeholder="Senha" required>
+								<label for="password" class="form-label">Senha</label>
+								<Field
+									v-bind:type="[showPassword ? 'text' : 'password']"
+									id="password" type="text"  name="password" 
+									class="form-control" placeholder="Insira a senha" 
+									:rules="passwordValidation"
+									v-model="auth.password">
+								</Field>
+								<i class="fa-regular field-icon fa-lg" :class="{'fa-eye-slash': showPassword, 'fa-eye': !showPassword}" @click="toggleShow"></i>
+								<ErrorMessage name="password" class="invalid"/>
 							</div>
 							<div class="form-group">
 								<button id="btn" type="submit" class="form-control btn btn-primary submit px-3 whiteLink">
 									<a style="color: #000;">Entrar</a>
 								</button>
 							</div>
-				<!-- <div class="form-group d-md-flex">
-					<div class="w-50 text-left">
-						<label class="checkbox-wrap checkbox-primary mb-0">Remember Me
-									<input type="checkbox" checked>
-									<span class="checkmark"></span>
-									</label>
-								</div>
-								<div class="w-50 text-md-right">
-									<a href="#">Forgot Password</a>
-								</div>
-				</div> -->
-						</form>
+							<!-- <div class="form-group d-md-flex">
+								<div class="w-50 text-left">
+									<label class="checkbox-wrap checkbox-primary mb-0">Remember Me
+												<input type="checkbox" checked>
+												<span class="checkmark"></span>
+												</label>
+											</div>
+											<div class="w-50 text-md-right">
+												<a href="#">Forgot Password</a>
+											</div>
+							</div> -->
+						</Form>
 					</div>
 		      </div>
 		</div>
@@ -63,11 +81,15 @@
 import $ from 'jquery'
 import axios from 'axios'
 import vuex from 'vuex'
+import { Form, Field, ErrorMessage } from 'vee-validate';
 
 
   export default {
       name: 'Login',
       components: {
+		Form,
+        Field,
+        ErrorMessage
       },
 
       data() {
@@ -88,12 +110,13 @@ import vuex from 'vuex'
             title: null,
             visible: false
           },
+		  showPassword: false,
         }
       },
 
       methods: {
 		login: async function(e) {
-			e.preventDefault();
+			
 			const auth = { username: this.auth.username, password: this.auth.password };
 			try {
 				const response = await axios.post(
@@ -145,8 +168,25 @@ import vuex from 'vuex'
 				visible: true
 				};
 			}
-		}
-      }
+		},
+		toggleShow() {
+			this.showPassword = !this.showPassword;
+		},
+
+		usernameValidation(value) {
+			if (!value || !value.length) {
+				return "Informe seu nome de usuário.";
+			}
+			return true;
+		},
+
+		passwordValidation(value) {
+			if (!value || !value.length) {
+				return "Informe sua senha.";
+			}
+			return true;
+		},
+    }
   }
 </script>
 
@@ -154,4 +194,8 @@ import vuex from 'vuex'
 <style lang="scss" scoped>
     @import url('../assets/scss/style.scss');
     @import url('../assets/scss/form-login.scss');
+
+	.invalid {
+      color: #FD5A46;
+    }
 </style>
