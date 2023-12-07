@@ -2,12 +2,10 @@
     <main>
       <NavBar />
       <div class="container position-relative">
-        <!-- <a href="/add" class="position-absolute top-3 end-0 mt-1 mr-6 pb-5">
-          <button type="button" class="btn btn-primary">
-            <i class="fa-solid fa-plus pr-2"></i>
-            <span class="p-2 text-decoration-none">ADICIONAR LIVRO</span>
-          </button>
-        </a> -->
+        <div class="input-group mt-3 mb-3">
+          <input type="text" v-model="searchTerm" class="form-control" placeholder="Pesquisar por título ou autor" @input="handleSearch" />
+        </div>
+  
         <div class="d-flex flex-wrap justify-content-center mt-2 pt-4">
           <Book
             v-for="book in paginatedBooks"
@@ -62,6 +60,7 @@
         books: [],
         currentPage: 1,
         itemsPerPage: 8, // número de itens por página
+        searchTerm: '',
       };
     },
   
@@ -70,13 +69,21 @@
     },
   
     computed: {
+      filteredBooks() {
+        const term = this.searchTerm.toLowerCase();
+        return this.books.filter(
+          book =>
+            book.title.toLowerCase().includes(term) ||
+            book.author.toLowerCase().includes(term)
+        );
+      },
       totalPages() {
-        return Math.ceil(this.books.length / this.itemsPerPage);
+        return Math.ceil(this.filteredBooks.length / this.itemsPerPage);
       },
       paginatedBooks() {
         const startIndex = (this.currentPage - 1) * this.itemsPerPage;
         const endIndex = startIndex + this.itemsPerPage;
-        return this.books.slice(startIndex, endIndex);
+        return this.filteredBooks.slice(startIndex, endIndex);
       },
       pages() {
         return Array.from({ length: this.totalPages }, (_, i) => i + 1);
@@ -111,8 +118,10 @@
           this.currentPage++;
         }
       },
+  
+      handleSearch() {
+        this.currentPage = 1;
+      },
     },
   };
-  </script>
-  
-  
+  </script>  
