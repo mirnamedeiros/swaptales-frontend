@@ -17,20 +17,29 @@ import 'font-awesome/css/font-awesome.css'
         },
 
         mounted(){
-            this.getListReviews();
+            this.findReviews();
          },
 
         methods: {
-          getListReviews(){
+          findReviews(){
 
               fetch('http://localhost:8080/swaptales/api/reviews', {
                 method: 'GET'
               })
-                .then(response => response.json())
+                .then(response => {
+					if (!response.ok) {
+						throw new Error(`Erro ao recuperar reviews: ${response.statusText}`);
+					}
+					return response.json(); 
+				})
                 .then(data => {
-                    this.reviews = data.json;
-                    console.log(this.reviews);
-                })
+					if(data){
+						this.reviews = data
+                            console.log(this.reviews);
+					}else{
+					alert("Nao ha reviews");
+					}
+				})
           }
       },
     }
@@ -57,9 +66,9 @@ import 'font-awesome/css/font-awesome.css'
             <div class="row row align-items-center">
                 <div class="col-md-4 " v-for="review in reviews" :key="review.id">
                 <div class="card" style="width: 14rem;">
-                    <img :src="review.book.url_img" class="card-img-top" alt="capa">
+                    <img :src="review.book.urlImg" class="card-img-top" alt="capa">
                     <div class="card-body">
-                        <h5 class="card-title">{{ review.author_review.username}}</h5>
+                        <h5 class="card-title">{{ review.authorReview.username }}</h5>
                         <p class="card-text">{{ review.text }}</p>
                         
                         <div class="rating">
