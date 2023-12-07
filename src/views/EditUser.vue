@@ -159,7 +159,6 @@
             })
               .then(async response => {
                 if (response.status === 200) {
-                  console.log("foi")
                   this.snackbar = {
                     color: "success",
                     icon: "fa-solid fa-circle-check",

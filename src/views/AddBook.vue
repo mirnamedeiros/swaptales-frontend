@@ -130,18 +130,24 @@
                 </div>
 
               </Form>
-        
-            </div>
-            <div>
-               
-                
 
-            <modal :show-modal="showModal" @close="fecharModal">
-                  <!-- Conteúdo do seu modal aqui -->
-                  <p>Livro adicionado com sucesso.</p>
-                
-            </modal>
-              
+              <v-snackbar v-model="snackbar.visible" auto-height :color="snackbar.color" :multi-line="snackbar.mode === 'multi-line'" :timeout="snackbar.timeout" :top="snackbar.position === 'top'">
+                <v-layout align-center pr-4 class="d-flex align-items-center">
+                  <v-icon dark large style="margin-right: 20px;">
+                    {{ snackbar.icon }}
+                  </v-icon>
+                  <v-layout column class="d-flex flex-column">
+                    <div>
+                      <strong>{{ snackbar.title }}</strong>
+                    </div>
+                    <div>{{ snackbar.text }}</div>
+                  </v-layout>
+                </v-layout>
+                <v-btn v-if="snackbar.timeout === 0" icon @click="snackbar.visible = false">
+                  <v-icon>clear</v-icon>
+                </v-btn>
+              </v-snackbar>
+
             </div>
           </div>
     </main>
@@ -168,21 +174,30 @@
 
       data() {
           return {
-            showModal: false,
-              book : {
-                title: "",
-                author: "",
-                edition: 1,
-                urlImg: "",
-                ownerUserId: localStorage.getItem('currentUser'),
-                availabilityStatus: "FOR_SALE",
-                price: 0,
-                publishingYear: "",
-                countDaysLoan: "",
-                conditionBook: "NOVO",
-                description: "",
-              },
-              file: null,
+            book : {
+              title: "",
+              author: "",
+              edition: 1,
+              urlImg: "",
+              ownerUserId: localStorage.getItem('currentUser'),
+              availabilityStatus: "FOR_SALE",
+              price: 0,
+              publishingYear: "",
+              countDaysLoan: "",
+              conditionBook: "NOVO",
+              description: "",
+            },
+            file: null,
+            snackbar: {
+              color: null,
+              icon: null,
+              mode: null,
+              position: "top",
+              text: null,
+              timeout: 3000,
+              title: null,
+              visible: false
+            },
           }
       },
 
@@ -201,7 +216,17 @@
             body: formData,
           }).then(response => {
               if (!response.ok) {
-                throw new Error(`Erro no upload: ${response.statusText}`);
+                this.snackbar = {
+                  color: "error",
+                  icon: "fa-solid fa-circle-exclamation",
+                  mode: "multi-line",
+                  position: "top",
+                  timeout: 1000,
+                  title: "Erro no upload:",
+                  text: response.statusText,
+                  visible: true
+                };
+                // throw new Error(`Erro no upload: ${response.statusText}`);
               }
               return response.text();
             })
@@ -219,25 +244,69 @@
                 })
                   .then(response => {
                     if (response.status === 200) {
-                      this.showModal = true
-                      // this.$router.push('/books');
+                      this.snackbar = {
+                        color: "success",
+                        icon: "fa-solid fa-circle-check",
+                        mode: "multi-line",
+                        position: "top",
+                        timeout: 1000,
+                        title: "",
+                        text: "Livro adicionado com sucesso.",
+                        visible: true
+                      };
+                      setTimeout(() => {
+                        this.$router.go(-1);
+                      }, this.snackbar.timeout);
                     } else {
-                      alert('Erro ao adicionar livro: ' +  response.statusText);
+                      this.snackbar = {
+                        color: "error",
+                        icon: "fa-solid fa-circle-exclamation",
+                        mode: "multi-line",
+                        position: "top",
+                        timeout: 1000,
+                        title: "Erro ao adicionar livro:",
+                        text: response.statusText,
+                        visible: true
+                      };
+                      setTimeout(() => {
+                        this.$router.go(-1);
+                      }, this.snackbar.timeout);
                     }
                   })
                   .catch(error => {
-                    alert('Erro ao fazer a solicitação: ' +  error);
+                    this.snackbar = {
+                      color: "error",
+                      icon: "fa-solid fa-circle-exclamation",
+                      mode: "multi-line",
+                      position: "top",
+                      timeout: 1000,
+                      title: "Erro ao fazer a solicitação: ",
+                      text: error,
+                      visible: true
+                    };
+                    setTimeout(() => {
+                      this.$router.go(-1);
+                    }, this.snackbar.timeout);
                   });
               }
             })
             .catch(error => {
-              alert('Erro ao fazer a solicitação para a api de imagens: ' + error);
+              this.snackbar = {
+                color: "error",
+                icon: "fa-solid fa-circle-exclamation",
+                mode: "multi-line",
+                position: "top",
+                timeout: 1000,
+                title: "Erro ao fazer a solicitação para a api de imagens: ",
+                text: error,
+                visible: true
+              };
+              setTimeout(() => {
+                this.$router.go(-1);
+              }, this.snackbar.timeout);
             })
-        } ,
-        fecharModal() {
-          this.showModal = false;
-          this.$router.push('/books'); // Redirecionamento após fechar a modal
         },
+        
         isRequired(value, fieldName) {
           console.log(fieldName)
           if (!value) {
