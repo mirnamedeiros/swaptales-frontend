@@ -352,3 +352,12 @@ span.checkmark::after {
 	z-index: 2;
   }
   
+
+@media screen and (max-width: 580px) {
+	.login {
+		flex-direction: column;
+		> * {
+			width: 100%;
+		  }
+	}
+}
