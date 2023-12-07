@@ -1,4 +1,20 @@
 <template>
+    <v-snackbar v-model="snackbar.visible" auto-height :color="snackbar.color" :multi-line="snackbar.mode === 'multi-line'" :timeout="snackbar.timeout" :top="snackbar.position === 'top'">
+      <v-layout align-center pr-4 class="d-flex align-items-center">
+        <v-icon dark large style="margin-right: 20px;">
+          {{ snackbar.icon }}
+        </v-icon>
+        <v-layout column class="d-flex flex-column">
+          <div>
+            <strong>{{ snackbar.title }}</strong>
+          </div>
+          <div>{{ snackbar.text }}</div>
+        </v-layout>
+      </v-layout>
+      <v-btn v-if="snackbar.timeout === 0" icon @click="snackbar.visible = false">
+        <v-icon>clear</v-icon>
+      </v-btn>
+    </v-snackbar>
     <main>
         <NavBar/>
         <div class="my-5">
@@ -47,7 +63,7 @@
   import NavBar from '../components/Navbar.vue'
   import Footer from '../components/Footer.vue'
   import { Form, Field, ErrorMessage } from 'vee-validate';
-
+  
   export default {
       name: 'EditUser',
       components: {
@@ -62,6 +78,16 @@
           return {
               user : "",
               id: "",
+              snackbar: {
+                color: null,
+                icon: null,
+                mode: null,
+                position: "top",
+                text: null,
+                timeout: 3000,
+                title: null,
+                visible: false
+              },
           }
       },
       mounted(){
@@ -78,7 +104,19 @@
             })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error(`Erro ao recuperar o usuario: ${response.statusText}`);
+                      this.snackbar = {
+                        color: "error",
+                        icon: "fa-solid fa-circle-exclamation",
+                        mode: "multi-line",
+                        position: "top",
+                        timeout: 1000,
+                        title: "Erro ao recuperar o usuario:",
+                        text: response.statusText,
+                        visible: true
+                      };
+                      setTimeout(() => {
+                        this.$router.push('/profile/' + this.id);
+                      }, this.snackbar.timeout);
                     }
                     return response.text();
                 })
@@ -86,37 +124,88 @@
                     if(data){
                         this.user = JSON.parse(data);
                     }else{
-                        console.log("Usuario não encontrado");
+                      this.snackbar = {
+                        color: "error",
+                        icon: "fa-solid fa-circle-exclamation",
+                        mode: "multi-line",
+                        position: "top",
+                        timeout: 3000,
+                        title: "",
+                        text: "Usuario não encontrado.",
+                        visible: true
+                      };
                     }
                 })
                 .catch(error => {
-                    console.error('Erro ao fazer a solicitação para a api de usuarios:', error);
+                    this.snackbar = {
+                      color: "error",
+                      icon: "fa-solid fa-circle-exclamation",
+                      mode: "multi-line",
+                      position: "top",
+                      timeout: 3000,
+                      title: "Erro ao fazer a solicitação para a api de usuarios: ",
+                      text: error,
+                      visible: true
+                    };
                 });
           },
-          editUser(){
-
-              alert(JSON.stringify(this.user))
-
-              fetch('http://localhost:8080/swaptales/api/users', {
-                method: 'PUT',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(this.user),
-              })
-                .then(response => {
-                  if (response.status === 200) {
-                    console.log('usuario editado com sucesso');
+          editUser() {
+            fetch('http://localhost:8080/swaptales/api/users', {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(this.user),
+            })
+              .then(async response => {
+                if (response.status === 200) {
+                  console.log("foi")
+                  this.snackbar = {
+                    color: "success",
+                    icon: "fa-solid fa-circle-check",
+                    mode: "multi-line",
+                    position: "top",
+                    timeout: 1000,
+                    title: "",
+                    text: "Usuário editado com sucesso!",
+                    visible: true
+                  };
+                  setTimeout(() => {
                     this.$router.push('/profile/' + this.id);
-                  } else {
-                    console.error('Erro ao editar usuario:', response.statusText);
-                  }
-                })
-                .catch(error => {
-                  console.error('Erro ao fazer a solicitação:', error);
-                });
-
+                  }, this.snackbar.timeout);
+                } else {
+                  this.snackbar = {
+                    color: "error",
+                    icon: "fa-solid fa-circle-exclamation",
+                    mode: "multi-line",
+                    position: "top",
+                    timeout: 1000,
+                    title: "Erro ao editar usuário: ",
+                    text: response.statusText,
+                    visible: true
+                  };
+                  setTimeout(() => {
+                    this.$router.push('/profile/' + this.id);
+                  }, this.snackbar.timeout);
+                }
+              })
+              .catch(error => {
+                this.snackbar = {
+                  color: "error",
+                  icon: "fa-solid fa-circle-exclamation",
+                  mode: "multi-line",
+                  position: "top",
+                  timeout: 1000,
+                  title: "Erro ao fazer a solicitação: ",
+                  text: error,
+                  visible: true
+                };
+                setTimeout(() => {
+                  this.$router.push('/profile/' + this.id);
+                }, this.snackbar.timeout);
+              });
           },
+          
           nameValidation(value) {
             if (!value || !value.length) {
               return "O nome é obrigatório.";
@@ -126,6 +215,7 @@
             }
             return true;
           },
+
           phoneValidation(value) {
             if (!value || !value.length) {
               return "O número de telefone é obrigatório";
