@@ -188,7 +188,7 @@ import { format } from 'date-fns';
 					<div class="preview col-md-5">
 						
 						<div class="preview-pic tab-content">
-						  <div class="tab-pane active" id="pic-1"><img :src="book.urlImg" /></div>
+						  <div class="card-img active" id="pic-1"><img :src="book.urlImg" /></div>
 						</div>
 						
 					</div>
@@ -257,4 +257,20 @@ import { format } from 'date-fns';
 <style lang="scss" scoped>
     @import url('../assets/scss/book-detail.scss');
     @import url('../assets/scss/style.scss');
+
+	.card-img {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid black;
+    border-radius: 0;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
 </style>
