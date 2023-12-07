@@ -2,12 +2,12 @@
     <main>
       <NavBar />
       <div class="container position-relative">
-        <a href="/add" class="position-absolute top-3 end-0 mt-1 mr-6 pb-5">
+        <!-- <a href="/add" class="position-absolute top-3 end-0 mt-1 mr-6 pb-5">
           <button type="button" class="btn btn-primary">
             <i class="fa-solid fa-plus pr-2"></i>
             <span class="p-2 text-decoration-none">ADICIONAR LIVRO</span>
           </button>
-        </a>
+        </a> -->
         <div class="d-flex flex-wrap justify-content-center mt-2 pt-4">
           <Book
             v-for="book in paginatedBooks"
