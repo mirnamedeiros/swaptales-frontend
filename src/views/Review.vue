@@ -10,15 +10,15 @@ import 'font-awesome/css/font-awesome.css'
             Footer
         },
 
-        beforeMount(){
-            this.getListReviews();
-         },
-
-         data() {
+        data() {
             return {
                 reviews: []
             }
         },
+
+        mounted(){
+            this.getListReviews();
+         },
 
         methods: {
           getListReviews(){

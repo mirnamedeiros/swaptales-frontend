@@ -25,7 +25,7 @@ export default {
       this.$set(this.isFollowingMap, userId, isFollowing);
     },
     getUsers() {
-      fetch('http://localhost:8080/swaptales/api/users', {
+      fetch('http://localhost:8080/swaptales/api/users/top-users', {
         headers: {
           'Content-Type': 'application/json',
         },

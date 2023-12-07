@@ -45,6 +45,7 @@ import { format } from 'date-fns';
 					.then(data => {
 						if(data){
 							this.setBook(JSON.parse(data));
+							this.bookId = this.book.id; 
 						}else{
 							console.log("Usuario não encontrado");
 						}
@@ -242,7 +243,7 @@ import { format } from 'date-fns';
 								<a class="btn btn-primary col-1 align-self-center" type="button" :href="'/add-review/' + book.id"><span class="fa fa-heart"></span></a>
 							</div>
 							<div v-if="idUserCurrent == idUserBook">
-								<a class="btn btn-primary col-1 align-self-center" type="button" :href="'/add-review/' + book.id"><span class="fa fa-heart"></span></a>
+								<a class="btn btn-primary col-1 align-self-center" type="button" :href="'/add-review/' + this.bookId  "><span class="fa fa-heart"></span></a>
 							</div>
 						</div>
                         
