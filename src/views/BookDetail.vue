@@ -240,10 +240,10 @@ import { format } from 'date-fns';
 									type="button" 
 									style="margin-right: 20px;"
 									@click="loanBook()">Empréstimo</button>	
-								<a class="btn btn-primary col-1 align-self-center" type="button" :href="'/add-review/' + book.id"><span class="fa fa-heart"></span></a>
+								<a class="btn btn-primary col-1 align-self-center" type="button" :href="'/add-review/' + this.id"><span class="fa fa-heart"></span></a>
 							</div>
 							<div v-if="idUserCurrent == idUserBook">
-								<a class="btn btn-primary col-1 align-self-center" type="button" :href="'/add-review/' + this.bookId  "><span class="fa fa-heart"></span></a>
+								<a class="btn btn-primary col-1 align-self-center" type="button" :href="'/add-review/' + this.id  "><span class="fa fa-heart"></span></a>
 							</div>
 						</div>
                         
