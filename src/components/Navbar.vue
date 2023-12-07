@@ -39,7 +39,7 @@
             </a>
         
             <div class="flex2 text-end d-block d-md-none">
-                <button class="whiteLink siteLink"><i class="fas fa-search"></i></button>
+                <button class="whiteLink siteLink" @click="menuToggle()"><i class="fas fa-bars me-2"></i></button>
             </div>
             <a href="/reviewUser" class="flex2 text-end d-none d-md-block">
                 <button class="whiteLink siteLink">
@@ -63,6 +63,9 @@
             </div>
             </div>
             <div>
+            <a href="/notification" class="nav-menu-item d-block d-md-none"><i class="fa-regular fa-bell me-3"></i>Notificações</a>
+            <a href="/reviewUser" class="nav-menu-item d-block d-md-none"><i class="fa-regular fa-face-smile me-3"></i>Destaques</a>
+            <a :href="'/profile/' + id" class="nav-menu-item d-block d-md-none"><i class="fa-regular fa-user me-3"></i>Perfil</a>
             <a href="/swapsUser" class="nav-menu-item"><i class="fa fa-exchange me-3"></i>Trocas</a>
             <a href="/loans" class="nav-menu-item"><i class="fa-regular fa-clock me-3"></i>Empréstimos</a>
             <a href="/bestbooks" class="nav-menu-item"><i class="fa-regular fa-bookmark me-3"></i>Melhores Livros</a>
