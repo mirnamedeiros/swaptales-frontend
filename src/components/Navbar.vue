@@ -13,6 +13,10 @@
                 var menuHolder = document.getElementById('menuHolder')
                 if(menuHolder.className === "drawMenu") menuHolder.className = ""
                 else menuHolder.classList.add("drawMenu")
+            },
+            logout: function() {
+                window.localStorage.clear();
+                window.location.href = '/login';
             }
         }
   }
@@ -70,7 +74,7 @@
             <a href="/loans" class="nav-menu-item"><i class="fa-regular fa-clock me-3"></i>Empréstimos</a>
             <a href="/bestbooks" class="nav-menu-item"><i class="fa-regular fa-bookmark me-3"></i>Melhores Livros</a>
             <a href="/reviews" class="nav-menu-item"><i class="fa-regular fa-star me-3"></i>Reviews</a>
-            <a href="/" class="nav-menu-item"><i class="fa-solid fa-arrow-right-from-bracket me-3"></i>Sair</a>
+            <a href="/"  @click="logout()" class="nav-menu-item"><i class="fa-solid fa-arrow-right-from-bracket me-3"></i>Sair</a>
             
             </div>
         </div>
